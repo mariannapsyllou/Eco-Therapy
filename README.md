@@ -186,4 +186,4 @@ Kim Zugic - kim.zugic0001@stud.hkr.se
 [codestyle-shield]: https://img.shields.io/badge/code%20style-black-000000.svg?style=for-the-badge
 [codestyle-url]: https://github.com/psf/black
 [project-link-url]: https://github.com/mariannapsyllou/Eco-Therpay
-[project-link-img]: https://img.shields.io/badge/Project%20Link-War%20Card%20Game-05A081.svg?style=for-the-badge&logo
+[project-link-img]: https://img.shields.io/badge/Project%20Link-Eco%20Anxiety-05A081.svg?style=for-the-badge&logo
