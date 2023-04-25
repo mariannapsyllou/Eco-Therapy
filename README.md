@@ -87,6 +87,8 @@ Our software product aims to provide users a platform where they can participate
 
 [![Python][Python-img]][Python-url]
 [![MySQL][sql-img]][sql-url]
+[![VSCode][vscode-img]][vscode-url]
+[![Azure][azure-img]][azure-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -159,6 +161,7 @@ Axel Friberg - axelfriberg01@gmail.com
 Kim Zugic - kim.zugic0001@stud.hkr.se
 
 <br />
+<br />
 
 [![project-link][project-link-img]][project-link-url]
 
@@ -183,7 +186,11 @@ Kim Zugic - kim.zugic0001@stud.hkr.se
 [Python-url]: https://www.python.org/
 [sql-img]: https://img.shields.io/badge/MySQL-005C84?style=for-the-badge&logo=mysql&logoColor=white
 [sql-url]: https://www.mysql.com/
+[vscode-img]: https://img.shields.io/badge/VSCode-0078D4?style=for-the-badge&logo=visual%20studio%20code&logoColor=white
+[vscode-url]: https://code.visualstudio.com/
+[azure-img]: https://img.shields.io/badge/microsoft%20azure-0089D6?style=for-the-badge&logo=microsoft-azure&logoColor=white
+[azure-url]: https://azure.microsoft.com/en-us
 [codestyle-shield]: https://img.shields.io/badge/code%20style-black-000000.svg?style=for-the-badge
 [codestyle-url]: https://github.com/psf/black
-[project-link-url]: https://github.com/mariannapsyllou/Eco-Therpay
+[project-link-url]: https://github.com/mariannapsyllou/Eco-Therapy
 [project-link-img]: https://img.shields.io/badge/Project%20Link-Eco%20Anxiety-05A081.svg?style=for-the-badge&logo
