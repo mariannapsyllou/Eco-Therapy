@@ -26,6 +26,7 @@
 
   <p align="center">
     An application that targets the symptoms of eco anxiety. 
+    
     <br />
     <a href="https://github.com/mariannapsyllou/Eco-Therapy"><strong>Explore the docs »</strong></a>
     <br />
@@ -67,7 +68,18 @@
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
-A university group project implementing agile development methods (such as Scrum and DevOps), database management systems and SQL, and python and custom tkinter.
+This is a university group project implementing python, custom tkinter, agile development methods (such as Scrum, DevOps, and automation), and database management systems with SQL. Our objective is to create a well designed software product that seamlessly integrates a database using pyhton code. 
+Eco anxiety is a globally growing phenomenon among all ages. It includes strong feelings of worry and fear about the decline in the environment.
+
+Ways in which eco anxiety can be relieved are:
+* Taking action to help the climate, no matter how small
+* Recognizing and understanding eco anxiety
+* Discussions about eco anxiety in groups
+* Connecting with nature in positive ways
+
+Our software product aims to provide users a platform where they can participate in climate helping activities. These activities include walks in nature, collecting waste, planting trees, and supporting bee farms.
+
+<a href="https://www.apa.org/monitor/2021/03/ce-climate-change">Read more about eco anxiety</a>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
