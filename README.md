@@ -138,15 +138,15 @@ Distributed under the MIT License. See `LICENSE.md` for more information.
 <!-- CONTACT -->
 ## Contact
 
-Miina Mäkinen     - miina.makinen@gmail.com 
+Miina Mäkinen ---- miina.makinen@gmail.com 
 
-Courage Räsänen   - couragerasanen@gmail.com
+Courage Räsänen -- couragerasanen@gmail.com
 
-Marianna Psyllou  - mcyllou@gmail.com
+Marianna Psyllou - mcyllou@gmail.com
 
-Axel Friberg      - axelfriberg01@gmail.com
+Axel Friberg ----- axelfriberg01@gmail.com
 
-Kim Zugic         - kim.zugic0001@stud.hkr.se
+Kim Zugic -------- kim.zugic0001@stud.hkr.se
 
 [![project-link][project-link-img]][project-link-url]
 
