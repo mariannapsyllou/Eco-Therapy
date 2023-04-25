@@ -26,7 +26,6 @@
 
   <p align="center">
     An application that targets the symptoms of eco anxiety. 
-    
     <br />
     <a href="https://github.com/mariannapsyllou/Eco-Therapy"><strong>Explore the docs »</strong></a>
     <br />
@@ -79,7 +78,7 @@ Ways in which eco anxiety can be relieved are:
 
 Our software product aims to provide users a platform where they can participate in climate helping activities. These activities include walks in nature, collecting waste, planting trees, and supporting bee farms.
 
-<a href="https://www.apa.org/monitor/2021/03/ce-climate-change">Read more about eco anxiety</a>
+<a href="https://www.apa.org/monitor/2021/03/ce-climate-change">Read more about eco anxiety here</a>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -158,6 +157,8 @@ Marianna Psyllou - mcyllou@gmail.com
 Axel Friberg - axelfriberg01@gmail.com
 
 Kim Zugic - kim.zugic0001@stud.hkr.se
+
+<br />
 
 [![project-link][project-link-img]][project-link-url]
 
