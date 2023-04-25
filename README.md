@@ -25,10 +25,9 @@
 <h3 align="center">Eco Therapy</h3>
 
   <p align="center">
-    
     An application that targets the symptoms of eco anxiety. 
     <br />
-    <a href="https://github.com/miinajohanna/WarCardGame"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/mariannapsyllou/Eco-Therapy"><strong>Explore the docs »</strong></a>
     <br />
     <br />
     <a href="https://github.com/mariannapsyllou/Eco-Therapy">View Demo</a>
@@ -138,15 +137,15 @@ Distributed under the MIT License. See `LICENSE.md` for more information.
 <!-- CONTACT -->
 ## Contact
 
-Miina Mäkinen ---- miina.makinen@gmail.com 
+Miina Mäkinen - miina.makinen@gmail.com 
 
-Courage Räsänen -- couragerasanen@gmail.com
+Courage Räsänen - couragerasanen@gmail.com
 
 Marianna Psyllou - mcyllou@gmail.com
 
-Axel Friberg ----- axelfriberg01@gmail.com
+Axel Friberg - axelfriberg01@gmail.com
 
-Kim Zugic -------- kim.zugic0001@stud.hkr.se
+Kim Zugic - kim.zugic0001@stud.hkr.se
 
 [![project-link][project-link-img]][project-link-url]
 
