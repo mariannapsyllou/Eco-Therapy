@@ -1,60 +1,112 @@
-# Makefile
+#!/usr/bin/env make
 
-# Define variables
-VENV_NAME := venv
-PYTHON := python3
-PIP := $(VENV_NAME)/bin/pip
-OS := $(shell uname -s)
-
-# Update virtual environment command based on OS
-ifeq ($(OS),Darwin)
-	VENV_CMD := python3 -m venv $(VENV_NAME)
-else ifeq ($(OS),Linux)
-	VENV_CMD := python3 -m venv $(VENV_NAME)
-else ifeq ($(OS),Windows_NT)
-	VENV_CMD := python -m venv $(VENV_NAME)
+UNAME_S := $(shell uname -s)
+ifeq ($(UNAME_S),Darwin)
+    PYTHON ?= python3
 else
-	$(error Unsupported OS: $(OS))
+    PYTHON ?= py
 endif
 
-# Default target
-all: install
+# Print out colored action message
+MESSAGE = printf "\033[32;01m---> $(1)\033[0m\n"
 
-# Create virtual environment
+all:
+
+# ---------------------------------------------------------
+# Setup a venv and install packages.
+#
+version:
+	@printf "Currently using executable: $(PYTHON)\n"
+	which $(PYTHON)
+	$(PYTHON) --version
+
 venv:
-	@echo "Checking if virtual environment exists..."
-	@if [ ! -d "$(VENV_NAME)" ]; then \
-		echo "Creating virtual environment..."; \
-		$(VENV_CMD); \
-	else \
-		echo "Virtual environment already exists."; \
-	fi
+	[ -d venv ] || $(PYTHON) -m venv venv
+	@printf "Now activate the Python virtual environment.\n"
+	@printf "On Unix and Mac, do:\n"
+	@printf ". .venv/bin/activate\n"
+	@printf "On Windows Command Prompt, do:\n"
+	@printf "    .\.venv\Scripts\activate.bat\n"
+	@printf "On Windows PowerShell, do:\n"
+	@printf "    .\.venv\Scripts\Activate.ps1\n"
+	@printf "Type 'deactivate' to deactivate.\n"
 
-# Install dependencies
-install: venv
-	@echo "Installing dependencies..."
-	$(PIP) install -r requirements.txt
+install:
+	$(PYTHON) -m pip install -r requirements.txt
 
-# Run tests
-test: venv
-	@echo "Running tests..."
-	$(PYTHON) -m unittest discover test
+installed:
+	$(PYTHON) -m pip list
 
-# Clean up
+# ---------------------------------------------------------
+# Cleanup generated and installed files.
+#
 clean:
-	@echo "Cleaning up..."
-	rm -rf $(VENV_NAME)
+	@$(call MESSAGE,$@)
+	rm -f .coverage *.pyc
+	rm -rf __pycache__
+	rm -rf htmlcov
 
-# Linters
-lint: venv
-	@echo "Running pylint and flake8..."
-	$(VENV_NAME)/bin/pylint src/
-	$(VENV_NAME)/bin/flake8 src/
+clean-doc: clean
+	@$(call MESSAGE,$@)
+	rm -rf doc
 
-format:
-	@echo "Running autopep8..."
-	$(VENV_NAME)/bin/autopep8 --in-place --recursive src/
+clean-all: clean clean-doc
+	@$(call MESSAGE,$@)
+	rm -rf .venv
 
+# ---------------------------------------------------------
+# Work with static code linters.
+#
+pylint:
+	@$(call MESSAGE,$@)
+	-pylint *.py
 
+flake8:
+	@$(call MESSAGE,$@)
+	-flake8
 
-.PHONY: venv install test clean lint
+lint: flake8 pylint
+
+# ---------------------------------------------------------
+# Work with codestyle.
+#
+black:
+	@$(call MESSAGE,$@)
+	 $(PYTHON) -m black .
+
+codestyle: black
+
+# ---------------------------------------------------------
+# Work with unit test and code coverage.
+#
+unittest:
+	@$(call MESSAGE,$@)
+	 $(PYTHON) -m unittest discover
+
+coverage:
+	@$(call MESSAGE,$@)
+	coverage run -m unittest discover
+	coverage html
+	coverage report -m
+
+test: lint coverage
+
+# ---------------------------------------------------------
+# Work with generating documentation.
+#
+.PHONY: pydoc
+pydoc:
+	@$(call MESSAGE,$@)
+	# This does not work on Windows installed Python
+	$(PYTHON) -m pydoc -w "$(PWD)"
+	install -d doc/pydoc
+	mv *.html doc/pydoc
+
+pdoc:
+	@$(call MESSAGE,$@)
+	pdoc --force --html --output-dir doc/pdoc .
+
+pyreverse:
+	@$(call MESSAGE,$@)
+	install -d doc/pyreverse
+	pyreverse *.py -a
