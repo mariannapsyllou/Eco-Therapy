@@ -3,15 +3,15 @@ from tkinter import PhotoImage
 
 
 class Enrollment(ctk.CTk):
-    width = 1024
-    height = 900
+    #width = 1024
+    #height = 900
 
     def __init__(self, **args):
         ctk.CTk.__init__(self, **args)
 
         self.title("Enrollment")
-        self.geometry(f"{self.width}x{self.height}")
-        self.resizable(False, False)
+        #self.geometry(f"{self.width}x{self.height}")
+        self.resizable(True, True)
 
         self.canvas = ctk.CTkCanvas(self, width=1024, height=900)
         self.bg_image = PhotoImage(file="nature2.png", width=1024, height=900)
