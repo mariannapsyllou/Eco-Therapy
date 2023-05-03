@@ -30,7 +30,7 @@ class App(tk.Tk):
             frame = F(parent=container, controller=self)
             self.frames[page_name] = frame
             frame.grid(row=0, column=0, sticky="nsew")
-        self.show_frame("MainMenuGui")
+        self.show_frame("EnrollmentGui")
 
     def show_frame(self, page_name):
         frame = self.frames[page_name]
@@ -461,6 +461,7 @@ class EnrollmentGui(tk.Frame):
             year = options_year.get()
             month = options_month.get()
             day = options_day.get()
+            birthday = f"{year}-{month}-{day}"
             if (phone.isdigit()):
                 print(f"{first_name} {last_name}\n{phone}\n{email}\n"
                       f"{year} {month} {day}")
@@ -477,10 +478,6 @@ class EnrollmentGui(tk.Frame):
                                       font=("Verdana", 50, "bold"),
                                       command=button_function)
         self.canvas.create_window(650, 700, anchor="nw", window=enroll_button)
-
-
-
-
 
 
 if __name__ == "__main__":
