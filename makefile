@@ -57,13 +57,14 @@ clean-all: clean clean-doc
 # ---------------------------------------------------------
 # Work with static code linters.
 #
+.PHONY: lint pylint flake8
 pylint:
 	@$(call MESSAGE,$@)
-	-pylint *.py
+	-cd src && $(PYTHON) -m pylint *.py
 
 flake8:
 	@$(call MESSAGE,$@)
-	-flake8
+	-cd src && $(PYTHON) -m flake8
 
 lint: flake8 pylint
 
