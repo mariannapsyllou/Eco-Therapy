@@ -25,7 +25,7 @@ class App(tk.Tk):
         window_x = int((screen_width - window_width) / 2)
         window_y = int((screen_height - window_height) / 2)
         self.geometry("{}x{}+{}+{}".format(window_width, window_height, window_x, window_y))
-        for F in (MainMenuGui, EnrollGui, Articles):
+        for F in (MainMenuGui, EnrollGui, Articles, EnrollmentGui):
             page_name = F.__name__
             frame = F(parent=container, controller=self)
             self.frames[page_name] = frame
@@ -204,13 +204,12 @@ class Articles(tk.Frame):
                                 font=('Helvetica', 20,),
                                 fill='white'
                                 )
-        self.image1 = tk.PhotoImage(file="art_1.png")
         self.frame_article1 = ctk.CTkFrame(self, fg_color="#E2EDF7")
         self.frame_article1.place(relx=0.23, rely=0.15, anchor="n")
-        self.tree_label = ctk.CTkLabel(self.frame_article1, image=self.image1 )
+        self.tree_label = ctk.CTkLabel(self.frame_article1)
         self.tree_label.pack(side="left")
         self.article_text = ctk.CTkLabel(self.frame_article1,
-                                         text="     HOW TO COPE WITH ECO ANXIETY\
+                                         text="\n     HOW TO COPE WITH ECO ANXIETY\
                                          \n1. Don't try to deny or Suppress your emotions.\
                                          \n2. Take Action\
                                          \n3. Find the right professionall help\
@@ -231,14 +230,14 @@ class Articles(tk.Frame):
                                             cursor="hand",
                                             fg_color="#E2EDF7",
                                             font=("Verdana", 15))
-        self.read_more_label.place(relx=0.24, rely=0.46, anchor="w")
+        self.read_more_label.place(relx=0.20, rely=0.46, anchor="w")
         self.read_more_label.bind("<Button-1>",
                                   lambda event: webbrowser.open_new(self.url1))
 
-        self.image2 = tk.PhotoImage(file="eco1.png")
+
         self.frame_article1 = ctk.CTkFrame(self, fg_color="#E2EDF7")
         self.frame_article1.place(relx=0.25, rely=0.55, anchor="n")
-        self.tree_label2 = ctk.CTkLabel(self.frame_article1, image=self.image2)
+        self.tree_label2 = ctk.CTkLabel(self.frame_article1)
         self.tree_label2.pack(side="left")
         self.article_text = ctk.CTkLabel(self.frame_article1,
                                          text="\nADDRESSING CLIMATE CHANGE CONCERNS\
@@ -261,22 +260,22 @@ class Articles(tk.Frame):
                                              cursor="hand",
                                              fg_color="#E2EDF7",
                                              font=("Verdana", 15))
-        self.read_more_label2.place(relx=0.26, rely=0.86, anchor="w")
+        self.read_more_label2.place(relx=0.22, rely=0.85, anchor="w")
         self.read_more_label2.bind("<Button-1>",
                                    lambda event: webbrowser.open_new(self.url2))
 
-        self.image3 = tk.PhotoImage(file="art3.png")
+
         self.frame_article3 = ctk.CTkFrame(self, fg_color="#E2EDF7")
-        self.frame_article3.place(relx=0.50, rely=0.33, anchor="w")
-        self.tree_label3 = ctk.CTkLabel(self.frame_article3, image=self.image3, text="")
+        self.frame_article3.place(relx=0.55, rely=0.34, anchor="w")
+        self.tree_label3 = ctk.CTkLabel(self.frame_article3)
         self.tree_label3.pack(side="left")
         self.article_text = ctk.CTkLabel(self.frame_article3,
                                          text="\nCLIMATE ANXIETY: 21 RESOURCES TO\
                                          \nENERGISE YOU INTO ACTION\
-                                         \n\nFears about the climate crisis getting\
-                                         \nthe better of you? Greenpeace staff\
-                                         \nhelps you navigate your worries about\
-                                         \nthe enviromental emergency\
+                                         \n\nFears about the climate crisis getting the better\
+                                         \nof you? Greenpeace staff helps you navigate\
+                                         \nyour worries about the enviromental\
+                                         \nemergency\
                                          \nHere is what they recommended\n\n",
                                          justify="left",
                                          font=("Verdana", 18),
@@ -292,21 +291,20 @@ class Articles(tk.Frame):
                                              cursor="hand",
                                              fg_color="#E2EDF7",
                                              font=("Verdana", 15))
-        self.read_more_label3.place(relx=0.73, rely=0.51, anchor="w")
+        self.read_more_label3.place(relx=0.71, rely=0.52, anchor="w")
         self.read_more_label3.bind("<Button-1>",
                                    lambda event: webbrowser.open_new(self.url3))
 
-        self.image4 = tk.PhotoImage(file="art4.png")
+
         self.frame_article4 = ctk.CTkFrame(self, fg_color="#E2EDF7")
-        self.frame_article4.place(relx=0.99, rely=0.74, anchor="e")
-        self.tree_label4 = ctk.CTkLabel(self.frame_article4, image=self.image4)
+        self.frame_article4.place(relx=0.89, rely=0.74, anchor="e")
+        self.tree_label4 = ctk.CTkLabel(self.frame_article4)
         self.tree_label4.pack(side="left")
         self.article_text = ctk.CTkLabel(self.frame_article4,
                                          text="\n7 WAYS TO PREVENT ECO-ANXIETY\
-                                         \n\nRead and learn ways to prevent\
-                                         \nEco-Anxiety. Learn about practices\
-                                         \nyou can do home such as\
-                                         \nrecycling and gardening\n\n",
+                                         \n\nRead and learn ways to prevent Eco-Anxiety.\
+                                         \nLearn about practices you can do home\
+                                         \nsuch as recycling and gardening.\n\n",
                                          justify="left",
                                          font=("Verdana", 18),
                                          wraplength=500,
@@ -321,29 +319,32 @@ class Articles(tk.Frame):
                                              cursor="hand",
                                              fg_color="#E2EDF7",
                                              font=("Verdana", 15))
-        self.read_more_label4.place(relx=0.87, rely=0.87, anchor="e")
+        self.read_more_label4.place(relx=0.76, rely=0.85, anchor="e")
         self.read_more_label4.bind("<Button-1>",
                                    lambda event: webbrowser.open_new(self.url4))
 
-
-""" class EnrollmentGui(tk.Frame):
-
+class EnrollmentGui(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         self.controller = controller
-        self.canvas = ctk.CTkCanvas(self, width=1024, height=900)
-        self.bg_image = tk.PhotoImage(file="nature.png")
+        #self.canvas = ctk.CTkCanvas(self, width=1024, height=900)
+        self.bg_image = tk.PhotoImage(file="bb.png")
+        self.canvas = tk.Canvas(self)
         self.canvas.pack(fill="both", expand=True)
         self.canvas.create_image(0, 0, image=self.bg_image, anchor="nw")
 
         self.canvas.create_text(750, 140, text="Eco Therapy",
-                                font=("Georgia", 100, "bold"),
+                                font=("Verdana", 100, "bold"),
                                 fill="#189AB4")
-        self.canvas.create_text(74, 30,
+        color = '#%02x%02x%02x' % (169, 200, 244)
+        self.homebutton = ctk.CTkButton(self,
                                 text="Home",
                                 font=("Helvetica", 20,),
-                                fill='white'
+                                bg_color=color,
+                                fg_color=color,
+                                command=lambda: controller.show_frame("MainMenuGui")
                                 )
+        self.homebutton.place(relx=0.01, rely=0.02)
         self.canvas.create_text(366, 30,
                                 text="About us",
                                 font=('Helvetica', 20,),
@@ -364,37 +365,37 @@ class Articles(tk.Frame):
         self.canvas.bind('<Button-1>', lambda event: controller.show_frame("EnrollGui"))
         self.canvas.create_text(595, 280, text="First Name",
                                 font=("Verdana", 25, "bold"),
-                                fill="white")
+                                fill="#189AB4")
 
         first_name_entry = ctk.CTkEntry(self, width=170,
-                                        height=50, font=("Verdana", 20))
+                                        height=50, font=("Verdana", 20),bg_color="white", fg_color="white", border_width=0)
         self.canvas.create_window(530, 300, anchor="nw",
                                   window=first_name_entry)
         self.canvas.create_text(915, 280, text="Last Name",
                                 font=("Verdana", 25, "bold"),
-                                fill="white")
+                                fill="#189AB4")
         last_name_entry = ctk.CTkEntry(self, width=170,
-                                       height=50, font=("Verdana", 20))
+                                       height=50, font=("Verdana", 20), bg_color="#189AB4", fg_color="white", border_width=0)
         self.canvas.create_window(850, 300, anchor="nw",
                                   window=last_name_entry)
 
 
-        self.canvas.create_text(675, 380, text="Phone Number",
+        """ self.canvas.create_text(675, 380, text="Phone Number",
                                 font=("Verdana", 25, "bold"),
                                 fill="white")
         phone_entry = ctk.CTkEntry(self, width=300,
                                    height=50, font=("Verdana", 20))
-        self.canvas.create_window(580, 400, anchor="nw", window=phone_entry)
+        self.canvas.create_window(580, 400, anchor="nw", window=phone_entry)"""
         self.canvas.create_text(615, 480, text="Email",
                                 font=("Verdana", 25, "bold"),
-                                fill="white")
+                                fill="#189AB4")
         email_entry = ctk.CTkEntry(self, width=300,
-                                   height=50, font=("Verdana", 20))
+                                   height=50, font=("Verdana", 20),bg_color="white", fg_color="white", border_width=0)
         self.canvas.create_window(580, 500, anchor="nw", window=email_entry)
 
         self.canvas.create_text(665, 580, text="Date of Birth",
                                 font=("Verdana", 25, "bold"),
-                                fill="white")
+                                fill="#189AB4")
 
         file_year = open(file='year.txt')
         read_year = file_year.readlines()
@@ -406,9 +407,9 @@ class Articles(tk.Frame):
         options_year = ctk.CTkOptionMenu(self, values=year,
                                          width=100,
                                          height=30,
-                                         bg_color="#165806",
-                                         fg_color="#165806",
-                                         button_color="#165806",
+                                         bg_color="white",
+                                         fg_color="white",
+                                         button_color="white",
                                          font=("Verdana", 15),
                                          dynamic_resizing=False)
         options_year.set("Year")
@@ -424,9 +425,9 @@ class Articles(tk.Frame):
         options_month = ctk.CTkOptionMenu(self, values=month,
                                           width=110,
                                           height=30,
-                                          bg_color="#165806",
-                                          fg_color="#165806",
-                                          button_color="#165806",
+                                          bg_color="white",
+                                          fg_color="white",
+                                          button_color="white",
                                           font=("Verdana", 15),
                                           dynamic_resizing=False)
         options_month.set("Month")
@@ -442,9 +443,9 @@ class Articles(tk.Frame):
         options_day = ctk.CTkOptionMenu(self, values=days,
                                         width=100,
                                         height=30,
-                                        bg_color="#165806",
-                                        fg_color="#165806",
-                                        button_color="#165806",
+                                        bg_color="white",
+                                        fg_color="white",
+                                        button_color="white",
                                         font=("Verdana", 15),
                                         dynamic_resizing=False)
         options_day.set("Day")
@@ -453,30 +454,22 @@ class Articles(tk.Frame):
         def button_function():
             first_name = first_name_entry.get()
             last_name = last_name_entry.get()
-            phone = phone_entry.get()
+             #phone = phone_entry.get()
             email = email_entry.get()
             year = options_year.get()
             month = options_month.get()
             day = options_day.get()
             birthday = f"{year}-{month}-{day}"
-            if (phone.isdigit()):
-                print(f"{first_name} {last_name}\n{phone}\n{email}\n"
-                      f"{year} {month} {day}")
-            else:
-                self.canvas.create_text(720, 460,
-                                        text=("Please enter a "
-                                              "correct phone number"),
-                                        font=("Verdana", 13, "bold"),
-                                        fill="red")
 
         enroll_button = ctk.CTkButton(self, width=100, height=50,
-                                      text="Enroll", fg_color="#165806",
-                                      bg_color="#165806",
-                                      font=("Verdana", 50, "bold"),
-                                      command=button_function)
+                                      text="Enroll", fg_color="#189AB4",
+                                      bg_color="#189AB4",
+                                      font=("Verdana", 50),
+                                      command=lambda: (button_function()))
+
         self.canvas.create_window(650, 700, anchor="nw", window=enroll_button)
 
- """
+
 if __name__ == "__main__":
     appl = App()
     appl.mainloop()
