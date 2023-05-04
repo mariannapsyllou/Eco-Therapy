@@ -25,12 +25,12 @@ class App(tk.Tk):
         window_x = int((screen_width - window_width) / 2)
         window_y = int((screen_height - window_height) / 2)
         self.geometry("{}x{}+{}+{}".format(window_width, window_height, window_x, window_y))
-        for F in (MainMenuGui, EnrollGui, Articles, EnrollmentGui):
+        for F in (MainMenuGui, EnrollGui, Articles):
             page_name = F.__name__
             frame = F(parent=container, controller=self)
             self.frames[page_name] = frame
             frame.grid(row=0, column=0, sticky="nsew")
-        self.show_frame("EnrollmentGui")
+        self.show_frame("MainMenuGui")
 
     def show_frame(self, page_name):
         frame = self.frames[page_name]
@@ -179,11 +179,16 @@ class Articles(tk.Frame):
                                       slant="italic")
         self.canvas.pack(fill='both', expand=True)
         self.canvas.create_image(0, 0, image=self.image, anchor="nw")
-        self.canvas.create_text(150, 30,
+
+        color = '#%02x%02x%02x' % (4, 96, 167)
+        self.home_button = ctk.CTkButton(self,
                                 text="Home",
                                 font=("Helvetica", 20,),
-                                fill='white'
+                                bg_color=color,
+                                fg_color=color,
+                                command=lambda: controller.show_frame("MainMenuGui")
                                 )
+        self.home_button.place(relx=0.01, rely=0.02)
         self.canvas.create_text(500, 30,
                                 text="About us",
                                 font=('Helvetica', 20,),
@@ -199,14 +204,6 @@ class Articles(tk.Frame):
                                 font=('Helvetica', 20,),
                                 fill='white'
                                 )
-        self.canvas = tk.Canvas(self, width=60, height=30, bg=('#70A6DA'), highlightthickness=0)
-        self.canvas.create_polygon(10, 20, 20, 10, 20, 15, 30, 15, 30, 25, 20,
-                                   25, 20, 30, 10, 20, fill="#189AB4")
-        self.canvas.bind('<Button-1>', lambda event: controller.show_frame("MainMenuGui"))
-
-        self.canvas.update_idletasks()
-        self.canvas.place(relx=0.02, rely=0.98, anchor='w')
-
         self.image1 = tk.PhotoImage(file="art_1.png")
         self.frame_article1 = ctk.CTkFrame(self, fg_color="#E2EDF7")
         self.frame_article1.place(relx=0.23, rely=0.15, anchor="n")
@@ -329,7 +326,7 @@ class Articles(tk.Frame):
                                    lambda event: webbrowser.open_new(self.url4))
 
 
-class EnrollmentGui(tk.Frame):
+""" class EnrollmentGui(tk.Frame):
 
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
@@ -479,7 +476,7 @@ class EnrollmentGui(tk.Frame):
                                       command=button_function)
         self.canvas.create_window(650, 700, anchor="nw", window=enroll_button)
 
-
+ """
 if __name__ == "__main__":
     appl = App()
     appl.mainloop()
