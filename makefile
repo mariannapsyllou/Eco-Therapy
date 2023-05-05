@@ -82,11 +82,11 @@ codestyle: black
 #
 unittest:
 	@$(call MESSAGE,$@)
-	 $(PYTHON) -m unittest discover
+	$(PYTHON) -m unittest discover -s test/
 
 coverage:
 	@$(call MESSAGE,$@)
-	coverage run -m unittest discover
+	coverage run -m unittest discover test/
 	coverage html
 	coverage report -m
 
@@ -111,3 +111,8 @@ pyreverse:
 	@$(call MESSAGE,$@)
 	install -d doc/pyreverse
 	pyreverse *.py -a
+
+.PHONY: format
+format:
+	autopep8 --in-place --recursive src/*.py
+
