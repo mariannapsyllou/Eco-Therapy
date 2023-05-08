@@ -20,14 +20,14 @@ class App(tk.Tk):
         container.grid_rowconfigure(0, weight=1)
         container.grid_columnconfigure(0, weight=1)
         self.frames = {}
-        screen_width = self.winfo_screenwidth()
-        screen_height = self.winfo_screenheight()
+        # screen_width = self.winfo_screenwidth()
+        # screen_height = self.winfo_screenheight()
 
-        window_width = int(screen_width * 0.8)
-        window_height = int(screen_height * 0.8)
-        window_x = int((screen_width - window_width) / 2)
-        window_y = int((screen_height - window_height) / 2)
-        self.geometry("{}x{}+{}+{}".format(window_width, window_height, window_x, window_y))
+        # window_width = int(screen_width * 0.8)
+        # window_height = int(screen_height * 0.8)
+        # window_x = int((screen_width - window_width) / 2)
+        # window_y = int((screen_height - window_height) / 2)
+        # self.geometry("{}x{}+{}+{}".format(window_width, window_height, window_x, window_y))
         for F in (MainMenuGui, EnrollGui, Articles, EnrollmentGui, AboutUs):
             page_name = F.__name__
             frame = F(parent=container, controller=self)
@@ -40,10 +40,9 @@ class App(tk.Tk):
         frame.tkraise()
 
 
-class MainMenuGui(tk.Frame):
-
-    def __init__(self, parent, controller):
-        tk.Frame.__init__(self, parent)
+class FrameTemplate(tk.Frame):
+    def __init__(self, parent, controller, **kwargs):
+        super().__init__(parent, **kwargs)
         self.controller = controller
         self.image = tk.PhotoImage(file="bb.png")
         self.canvas = tk.Canvas(self)
@@ -52,10 +51,6 @@ class MainMenuGui(tk.Frame):
                                       slant="italic")
         self.canvas.pack(fill='both', expand=True)
         self.canvas.create_image(0, 0, image=self.image, anchor="nw")
-        self.canvas.create_text(750, 140,
-                                text="Eco Therapy",
-                                font=("Verdana", 100, "bold"),
-                                fill='#317353')
         color = '#%02x%02x%02x' % (169, 200, 244)
         self.homebutton = ctk.CTkButton(self,
                                         text="Home",
@@ -87,6 +82,17 @@ class MainMenuGui(tk.Frame):
                                           controller.show_frame("AboutUs"))
         self.about_button.place(relx=0.85, rely=0.03, anchor='w')
 
+
+class MainMenuGui(FrameTemplate, tk.Frame):
+
+    def __init__(self, parent, controller):
+        super().__init__(parent, controller)
+        FrameTemplate.__init__(self, parent, controller)
+        self.controller = controller
+        self.canvas.create_text(750, 140,
+                                text="Eco Therapy",
+                                font=("Verdana", 100, "bold"),
+                                fill='#317353')
         self.canvas.create_text(450, 405,
                                 text="Join our activity sessions to improve the\
                                 \n           environment, with others.\
@@ -136,20 +142,13 @@ class MainMenuGui(tk.Frame):
                                 fill="white")
 
 
-class EnrollGui(tk.Frame):
+class EnrollGui(FrameTemplate, tk.Frame):
 
     def __init__(self, parent, controller):
-        tk.Frame.__init__(self, parent)
+        super().__init__(parent, controller)
+        FrameTemplate.__init__(self, parent, controller)
         self.controller = controller
-        self.image = tk.PhotoImage(file='bb.png')
-        self.canvas = tk.Canvas(self)
         self.events = format_data(read_data())
-        self.font_style = tkFont.Font(family="Verdana",
-                                      size=16,
-                                      slant="italic")
-        self.canvas.pack(fill='both', expand=True)
-        self.canvas.create_image(0, 0, image=self.image, anchor="nw")
-        self.canvas.create_image(0, 0, image=self.image, anchor="nw")
         self.canvas.create_text(700, 140,
                                 text="Activities",
                                 font=("Verdana", 100, "bold"),
@@ -163,36 +162,7 @@ class EnrollGui(tk.Frame):
                                 font=('Helvetica', 25,),
                                 fill='#317353'
                                 )
-        color = '#%02x%02x%02x' % (169, 200, 244)
-        self.homebutton = ctk.CTkButton(self,
-                                        text="Home",
-                                        font=("Helvetica", 20, "bold"),
-                                        bg_color=color,
-                                        fg_color=color,
-                                        command=
-                                        lambda:
-                                        controller.show_frame("MainMenuGui"))
-        self.homebutton.place(relx=0.01, rely=0.02)
 
-        self.activity_button = ctk.CTkButton(self,
-                                             text="Activities",
-                                             font=("Helvetica", 20, "bold"),
-                                             bg_color="#aac4f5",
-                                             fg_color="#aac4f5",
-                                             command=
-                                             lambda:
-                                             controller.show_frame("EnrollGui")
-                                             )
-        self.activity_button.place(relx=0.40, rely=0.03, anchor='w')
-        self.about_button = ctk.CTkButton(self,
-                                          text="About us",
-                                          font=("Helvetica", 20, "bold"),
-                                          bg_color="#ced5f2",
-                                          fg_color="#ced5f2",
-                                          command=
-                                          lambda:
-                                          controller.show_frame("AboutUs"))
-        self.about_button.place(relx=0.85, rely=0.03, anchor='w')
         button_1 = ctk.CTkButton(
                                 self,
                                 width=230,
@@ -256,51 +226,12 @@ class EnrollGui(tk.Frame):
         controller.show_frame(frame_name)
 
 
-
-
-class Articles(tk.Frame):
+class Articles(FrameTemplate, tk.Frame):
 
     def __init__(self, parent, controller):
-        tk.Frame.__init__(self, parent)
+        super().__init__(parent, controller)
+        FrameTemplate.__init__(self, parent, controller)
         self.controller = controller
-        self.image = tk.PhotoImage(file="bb.png")
-        self.canvas = tk.Canvas(self)
-        self.font_style = tkFont.Font(family="Verdana",
-                                      size=16,
-                                      slant="italic")
-        self.canvas.pack(fill='both', expand=True)
-        self.canvas.create_image(0, 0, image=self.image, anchor="nw")
-
-        color = '#%02x%02x%02x' % (169, 200, 244)
-        self.homebutton = ctk.CTkButton(self,
-                                        text="Home",
-                                        font=("Helvetica", 20, "bold"),
-                                        bg_color=color,
-                                        fg_color=color,
-                                        command=
-                                        lambda:
-                                        controller.show_frame("MainMenuGui"))
-        self.homebutton.place(relx=0.01, rely=0.02)
-
-        self.activity_button = ctk.CTkButton(self,
-                                             text="Activities",
-                                             font=("Helvetica", 20, "bold"),
-                                             bg_color="#aac4f5",
-                                             fg_color="#aac4f5",
-                                             command=
-                                             lambda:
-                                             controller.show_frame("EnrollGui")
-                                             )
-        self.activity_button.place(relx=0.40, rely=0.03, anchor='w')
-        self.about_button = ctk.CTkButton(self,
-                                          text="About us",
-                                          font=("Helvetica", 20, "bold"),
-                                          bg_color="#ced5f2",
-                                          fg_color="#ced5f2",
-                                          command=
-                                          lambda:
-                                          controller.show_frame("AboutUs"))
-        self.about_button.place(relx=0.85, rely=0.03, anchor='w')
         self.frame_article1 = ctk.CTkFrame(self, fg_color="#E2EDF7")
         self.frame_article1.place(relx=0.23, rely=0.15, anchor="n")
         self.tree_label = ctk.CTkLabel(self.frame_article1)
@@ -390,8 +321,6 @@ class Articles(tk.Frame):
         self.read_more_label3.place(relx=0.71, rely=0.52, anchor="w")
         self.read_more_label3.bind("<Button-1>",
                                    lambda event: webbrowser.open_new(self.url3))
-
-
         self.frame_article4 = ctk.CTkFrame(self, fg_color="#E2EDF7")
         self.frame_article4.place(relx=0.89, rely=0.74, anchor="e")
         self.tree_label4 = ctk.CTkLabel(self.frame_article4)
@@ -419,67 +348,41 @@ class Articles(tk.Frame):
         self.read_more_label4.bind("<Button-1>",
                                    lambda event: webbrowser.open_new(self.url4))
 
-class EnrollmentGui(tk.Frame):
+class EnrollmentGui(FrameTemplate, tk.Frame):
 
     def __init__(self, parent, controller):
-        tk.Frame.__init__(self, parent)
+        super().__init__(parent, controller)
+        FrameTemplate.__init__(self, parent, controller)
         self.controller = controller
-        #self.canvas = ctk.CTkCanvas(self, width=1024, height=900)
-        self.bg_image = tk.PhotoImage(file="bb.png")
-        self.canvas = tk.Canvas(self)
-        self.canvas.pack(fill="both", expand=True)
-        self.canvas.create_image(0, 0, image=self.bg_image, anchor="nw")
         self.canvas.create_text(720, 240, text="Enrollment Form",
                                 font=("Verdana", 40, "bold"),
                                 fill="#317353")
-        color = '#%02x%02x%02x' % (169, 200, 244)
-        self.homebutton = ctk.CTkButton(self,
-                                        text="Home",
-                                        font=("Helvetica", 20, "bold"),
-                                        bg_color=color,
-                                        fg_color=color,
-                                        command=
-                                        lambda:
-                                        controller.show_frame("MainMenuGui"))
-        self.homebutton.place(relx=0.01, rely=0.02)
-
-        self.activity_button = ctk.CTkButton(self,
-                                             text="Activities",
-                                             font=("Helvetica", 20, "bold"),
-                                             bg_color="#aac4f5",
-                                             fg_color="#aac4f5",
-                                             command=
-                                             lambda:
-                                             controller.show_frame("EnrollGui")
-                                             )
-        self.activity_button.place(relx=0.40, rely=0.03, anchor='w')
-        self.about_button = ctk.CTkButton(self,
-                                          text="About us",
-                                          font=("Helvetica", 20, "bold"),
-                                          bg_color="#ced5f2",
-                                          fg_color="#ced5f2",
-                                          command=
-                                          lambda:
-                                          controller.show_frame("AboutUs"))
-        self.about_button.place(relx=0.85, rely=0.03, anchor='w')
-        polygon=self.canvas.create_polygon(5, 15, 15, 5, 15, 10, 25, 10, 25, 20, 15,
+        polygon = self.canvas.create_polygon(5, 15, 15, 5, 15, 10, 25, 10, 25, 20, 15,
                                    20, 15, 25, 5, 15, fill="#317353")
         x0, y0, x1, y1 = self.canvas.bbox(polygon)
-        button = self.canvas.create_rectangle(x0, y0, x1, y1, fill="", outline="")
-        self.canvas.tag_bind(button,'<Button-1>', lambda event: controller.show_frame("EnrollGui"))
+        button = self.canvas.create_rectangle(x0, y0, x1, y1, fill="",
+                                              outline="")
+        self.canvas.tag_bind(button, '<Button-1>', lambda event:
+                             controller.show_frame("EnrollGui"))
         self.canvas.create_text(540, 330, text="First Name",
                                 font=("Verdana", 25, "bold"),
                                 fill="#317353")
 
         first_name_entry = ctk.CTkEntry(self, width=170,
-                                        height=50, font=("Verdana", 20),bg_color="white", fg_color="white", border_width=0)
+                                        height=50, font=("Verdana", 20),
+                                        bg_color="white",
+                                        fg_color="white",
+                                        border_width=0)
         self.canvas.create_window(475, 350, anchor="nw",
                                   window=first_name_entry)
         self.canvas.create_text(815, 330, text="Last Name",
                                 font=("Verdana", 25, "bold"),
                                 fill="#317353")
         last_name_entry = ctk.CTkEntry(self, width=170,
-                                       height=50, font=("Verdana", 20), bg_color="#317353", fg_color="white", border_width=0)
+                                       height=50, font=("Verdana", 20),
+                                       bg_color="#317353",
+                                       fg_color="white",
+                                       border_width=0)
         self.canvas.create_window(750, 350, anchor="nw",
                                   window=last_name_entry)
 
@@ -494,7 +397,10 @@ class EnrollmentGui(tk.Frame):
                                 font=("Verdana", 25, "bold"),
                                 fill="#317353")
         email_entry = ctk.CTkEntry(self, width=300,
-                                   height=50, font=("Verdana", 20),bg_color="white", fg_color="white", border_width=0)
+                                   height=50, font=("Verdana", 20),
+                                   bg_color="white",
+                                   fg_color="white",
+                                   border_width=0)
         self.canvas.create_window(580, 480, anchor="nw", window=email_entry)
 
         self.canvas.create_text(720, 580, text="Date of Birth",
@@ -589,53 +495,15 @@ class EnrollmentGui(tk.Frame):
             messagebox.showinfo(title="Success", message="Data saved successfully!")
 
 
-class AboutUs(tk.Frame):
-
+class AboutUs(FrameTemplate, tk.Frame):
     def __init__(self, parent, controller):
-        tk.Frame.__init__(self, parent)
+        super().__init__(parent, controller)
+        FrameTemplate.__init__(self, parent, controller)
         self.controller = controller
-        self.image = tk.PhotoImage(file="bb.png")
-        self.canvas = tk.Canvas(self)
-        self.font_style = tkFont.Font(family="Verdana",
-                                      size=16,
-                                      slant="italic")
-        self.canvas.pack(fill='both', expand=True)
-        self.canvas.create_image(0, 0, image=self.image, anchor="nw")
         self.canvas.create_text(750, 140,
                                 text="About us",
                                 font=("Verdana", 100, "bold"),
                                 fill='#317353')
-
-        color = '#%02x%02x%02x' % (169, 200, 244)
-        self.homebutton = ctk.CTkButton(self,
-                                        text="Home",
-                                        font=("Helvetica", 20, "bold"),
-                                        bg_color=color,
-                                        fg_color=color,
-                                        command=
-                                        lambda:
-                                        controller.show_frame("MainMenuGui"))
-        self.homebutton.place(relx=0.01, rely=0.02)
-
-        self.activity_button = ctk.CTkButton(self,
-                                             text="Activities",
-                                             font=("Helvetica", 20, "bold"),
-                                             bg_color="#aac4f5",
-                                             fg_color="#aac4f5",
-                                             command=
-                                             lambda:
-                                             controller.show_frame("EnrollGui")
-                                             )
-        self.activity_button.place(relx=0.40, rely=0.03, anchor='w')
-        self.about_button = ctk.CTkButton(self,
-                                          text="About us",
-                                          font=("Helvetica", 20, "bold"),
-                                          bg_color="#ced5f2",
-                                          fg_color="#ced5f2",
-                                          command=
-                                          lambda:
-                                          controller.show_frame("AboutUs"))
-        self.about_button.place(relx=0.85, rely=0.03, anchor='w')
         self.canvas.create_text(450, 250,
                                 text="Eco Therapy is an application that targets the\
                                     \nsymptoms of eco anxiety.",
@@ -660,9 +528,8 @@ class AboutUs(tk.Frame):
                                     \nMarianna Psyllou\
                                     \nCourage Räsänen\
                                     \nKim Zugic",
-                                    font=("Verdana",22),
-                                    fill='#317353')
-
+                                font=("Verdana",22),
+                                fill='#317353')
 
 
 if __name__ == "__main__":
