@@ -9,6 +9,7 @@ from tkinter import PhotoImage
 
 con = sqlite3.connect("eco-therapy.db")
 
+
 class App(tk.Tk):
 
     def __init__(self, **args):
@@ -19,7 +20,7 @@ class App(tk.Tk):
         container.grid_rowconfigure(0, weight=1)
         container.grid_columnconfigure(0, weight=1)
         self.frames = {}
-        for F in (MainMenuGui, EnrollGui, Articles, EnrollmentGui):
+        for F in (MainMenuGui, EnrollGui, Articles, EnrollmentGui, AboutUs):
             page_name = F.__name__
             frame = F(parent=container, controller=self)
             frame.grid(row=0, column=0, sticky="nsew")
@@ -31,7 +32,6 @@ class App(tk.Tk):
     def show_frame(self, page_name):
         frame = self.frames[page_name]
         frame.tkraise()
-
 
 
 class MainMenuGui(tk.Frame):
@@ -53,38 +53,48 @@ class MainMenuGui(tk.Frame):
         self.canvas.create_text(650, 140,
                                 text="Eco Therapy",
                                 font=("Verdana", 70, "bold"),
-                                fill='#189AB4')
-        self.canvas.create_text(150, 30,
-                                text="Home",
-                                font=("Helvetica", 15,),
-                                fill='white'
-                                )
-        self.canvas.create_text(500, 30,
-                                text="About us",
-                                font=('Helvetica', 15,),
-                                fill='white'
-                                )
-        self.canvas.create_text(850, 30,
-                                text="Volunteer",
-                                font=('Helvetica', 15,),
-                                fill='white'
-                                )
-        self.canvas.create_text(1150, 30,
-                                text="Blog",
-                                font=('Helvetica', 15,),
-                                fill='white'
-                                )
+                                fill='#317353')
+        color = '#%02x%02x%02x' % (169, 200, 244)
+        self.homebutton = ctk.CTkButton(self,
+                                        text="Home",
+                                        font=("Helvetica", 20, "bold"),
+                                        bg_color=color,
+                                        fg_color=color,
+                                        command=
+                                        lambda:
+                                        controller.show_frame("MainMenuGui"))
+        self.homebutton.place(relx=0.01, rely=0.02)
+
+        self.activity_button = ctk.CTkButton(self,
+                                             text="Activities",
+                                             font=("Helvetica", 20, "bold"),
+                                             bg_color="#aac4f5",
+                                             fg_color="#aac4f5",
+                                             command=
+                                             lambda:
+                                             controller.show_frame("EnrollGui")
+                                             )
+        self.activity_button.place(relx=0.40, rely=0.03, anchor='w')
+        self.about_button = ctk.CTkButton(self,
+                                          text="About us",
+                                          font=("Helvetica", 20, "bold"),
+                                          bg_color="#ced5f2",
+                                          fg_color="#ced5f2",
+                                          command=
+                                          lambda:
+                                          controller.show_frame("AboutUs"))
+        self.about_button.place(relx=0.85, rely=0.03, anchor='w')
         self.canvas.create_text(410, 330,
                                 text="Join our activity sessions to improve the\
                                 \n           environment, with others.\
                                 \n\nMake a difference by planting trees, recycling\
                                 \n            and helping beekeepers.",
                                 font=('Verdana', 18),
-                                fill='#189AB4')
+                                fill='#317353')
 
         self.button1 = ctk.CTkButton(self, text=" ENROLL",
                                      font=("Verdana", 20),
-                                     fg_color="#189AB4",
+                                     fg_color="#317353",
                                      height=60,
                                      width=190,
                                      command=lambda: controller.show_frame("EnrollGui")
@@ -99,10 +109,10 @@ class MainMenuGui(tk.Frame):
                                 \n   to provide the latest information in the \
                                 \n                          field.",
                                 font=('Verdana', 16),
-                                fill='#189AB4')
+                                fill='#317353')
         self.button2 = ctk.CTkButton(self, text="LEARN MORE",
                                      font=('Verdana', 18),
-                                     fg_color=('#189AB4'),
+                                     fg_color=('#317353'),
                                      height=60,
                                      width=190,
                                      command=lambda: controller.show_frame("Articles"))
@@ -132,10 +142,10 @@ class EnrollGui(tk.Frame):
                                       slant="italic")
         self.canvas.pack(fill='both', expand=True)
         self.canvas.create_image(0, 0, image=self.image, anchor="nw")
-        self.canvas.create_text(650, 140,
+        self.canvas.create_text(680, 140,
                                 text="Activities",
                                 font=("Verdana", 70, "bold"),
-                                fill="#11BC90",
+                                fill='#317353'
                                 )
         color = '#%02x%02x%02x' % (169, 200, 244)
         self.homebutton = ctk.CTkButton(self,
@@ -146,28 +156,30 @@ class EnrollGui(tk.Frame):
                                         command=lambda: controller.show_frame("MainMenuGui")
                                 )
         self.homebutton.place(relx=0.01, rely=0.02)
-
-        self.canvas.create_text(500, 30,
-                                text="About us",
-                                font=('Helvetica', 15,),
-                                fill='white'
-                                )
-        self.canvas.create_text(850, 30,
-                                text="Volunteer",
-                                font=('Helvetica', 15,),
-                                fill='white'
-                                )
-        self.canvas.create_text(1150, 30,
-                                text="Blog",
-                                font=('Helvetica', 15,),
-                                fill='white'
-                                )
+        self.activity_button = ctk.CTkButton(self,
+                                             text="Activities",
+                                             font=("Helvetica", 20, "bold"),
+                                             bg_color="#aac4f5",
+                                             fg_color="#aac4f5",
+                                             command=
+                                             lambda:
+                                             controller.show_frame("EnrollGui")
+                                             )
+        self.activity_button.place(relx=0.40, rely=0.03, anchor='w')
+        self.about_button = ctk.CTkButton(self,
+                                          text="About us",
+                                          font=("Helvetica", 20, "bold"),
+                                          bg_color="#ced5f2",
+                                          fg_color="#ced5f2",
+                                          command=
+                                          lambda:
+                                          controller.show_frame("AboutUs"))
+        self.about_button.place(relx=0.85, rely=0.03, anchor='w')
         self.canvas.create_text(750, 270,
                                 text="Here you can find information on our next available events.\
                                     \nCheck the page frequently as they are updated daily.",
-
                                 font=('Helvetica', 15,),
-                                fill="#11BC90"
+                                fill="#317353"
                                 )
         button_1 = ctk.CTkButton(
                                 self, 
@@ -232,45 +244,48 @@ class EnrollGui(tk.Frame):
         controller.show_frame(frame_name)
 
 
-
-
 class Articles(tk.Frame):
 
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         self.controller = controller
-        self.image = tk.PhotoImage(file="back2.png")
+        self.image = tk.PhotoImage(file="bb.png")
         self.canvas = tk.Canvas(self)
         self.font_style = tkFont.Font(family="Verdana",
                                       size=16,
                                       slant="italic")
         self.canvas.pack(fill='both', expand=True)
         self.canvas.create_image(0, 0, image=self.image, anchor="nw")
-
-        color = '#%02x%02x%02x' % (4, 96, 167)
-        self.home_button = ctk.CTkButton(self,
-                                text="Home",
-                                font=("Helvetica", 15,),
-                                bg_color=color,
-                                fg_color=color,
-                                command=lambda: controller.show_frame("MainMenuGui")
-                                )
-        self.home_button.place(relx=0.01, rely=0.02)
-        self.canvas.create_text(500, 30,
-                                text="About us",
-                                font=('Helvetica', 15,),
-                                fill='white'
-                                )
-        self.canvas.create_text(850, 30,
-                                text="Volunteer",
-                                font=('Helvetica', 15,),
-                                fill='white'
-                                )
-        self.canvas.create_text(1150, 30,
-                                text="Blog",
-                                font=('Helvetica', 15,),
-                                fill='white'
-                                )
+        color = '#%02x%02x%02x' % (169, 200, 244)
+        self.homebutton = ctk.CTkButton(self,
+                                        text="Home",
+                                        font=("Helvetica", 20, "bold"),
+                                        bg_color=color,
+                                        fg_color=color,
+                                        command=
+                                        lambda:
+                                        controller.show_frame("MainMenuGui"))
+        self.homebutton.place(relx=0.01, rely=0.02)
+        self.activity_button = ctk.CTkButton(self,
+                                             text="Activities",
+                                             font=("Helvetica", 20, "bold"),
+                                             bg_color="#aac4f5",
+                                             fg_color="#aac4f5",
+                                             command=
+                                             lambda:
+                                             controller.show_frame("EnrollGui")
+                                             )
+        self.about_button = ctk.CTkButton(self,
+                                          text="About us",
+                                          font=("Helvetica", 20, "bold"),
+                                          bg_color="#ced5f2",
+                                          fg_color="#ced5f2",
+                                          command=
+                                          lambda:
+                                          controller.show_frame("AboutUs"))
+        self.about_button.place(relx=0.85, rely=0.03, anchor='w')
+        
+        self.activity_button.place(relx=0.40, rely=0.03, anchor='w')
         self.frame_article1 = ctk.CTkFrame(self, fg_color="#E2EDF7")
         self.frame_article1.place(relx=0.23, rely=0.15, anchor="n")
         self.tree_label = ctk.CTkLabel(self.frame_article1, text=" ")
@@ -286,14 +301,14 @@ class Articles(tk.Frame):
                                          font=("Verdana", 18),
                                          wraplength=550,
                                          fg_color="#E2EDF7",
-                                         text_color="#189AB4",
+                                         text_color="#317353",
                                          bg_color="transparent",
                                          )
         self.article_text.pack(side="left")
         self.url1 = "https://www.everydayhealth.com/eco-anxiety/how-to-cope-with-eco-anxiety/"
         self.read_more_label = ctk.CTkLabel(self,
                                             text="Read More",
-                                            text_color="#189AB4",
+                                            text_color="#317353",
                                             fg_color="#E2EDF7",
                                             font=("Verdana", 15))
         self.read_more_label.place(relx=0.20, rely=0.54, anchor="w")
@@ -310,25 +325,22 @@ class Articles(tk.Frame):
                                              \n\nThe planet is undergoing rapid and unprecedented\
                                              \nclimate change that is creating stress and\
                                              \nmental anguish for people around the world.\n\n",
-                                             
                                          justify="left",
                                          font=("Verdana", 18),
                                          wraplength=600,
                                          fg_color="#E2EDF7",
-                                         text_color="#189AB4",
+                                         text_color="#317353",
                                          bg_color="transparent")
         self.article_text.pack(side="left")
         self.url2 = "https://www.apa.org/monitor/2021/03/ce-climate-change"
         self.read_more_label2 = ctk.CTkLabel(self,
                                              text="Read More",
-                                             text_color="#189AB4",
+                                             text_color="#317353",
                                              fg_color="#E2EDF7",
                                              font=("Verdana", 15))
         self.read_more_label2.place(relx=0.22, rely=0.93, anchor="w")
         self.read_more_label2.bind("<Button-1>",
                                    lambda event: webbrowser.open_new(self.url2))
-
-
         self.frame_article3 = ctk.CTkFrame(self, fg_color="#E2EDF7")
         self.frame_article3.place(relx=0.45, rely=0.34, anchor="w")
         self.tree_label3 = ctk.CTkLabel(self.frame_article3, text=" ")
@@ -344,20 +356,18 @@ class Articles(tk.Frame):
                                          font=("Verdana", 18),
                                          wraplength=575,
                                          fg_color="#E2EDF7",
-                                         text_color="#189AB4",
+                                         text_color="#317353",
                                          bg_color="transparent")
         self.article_text.pack(side="left")
         self.url3 = "https://www.greenpeace.org.uk/news/climate-anxiety-resources-to-energise-action/?gclid=CjwKCAjwo7iiBhAEEiwAsIxQEdllTZSd97f7yiVjbg1Ktpw3Jl9_R7h9kIYKfGpWW_RWRhhL-bIMpRoC0lkQAvD_BwE"
         self.read_more_label3 = ctk.CTkLabel(self,
                                              text="Read More",
-                                             text_color="#189AB4",
+                                             text_color="#317353",
                                              fg_color="#E2EDF7",
                                              font=("Verdana", 15))
         self.read_more_label3.place(relx=0.61, rely=0.52, anchor="w")
         self.read_more_label3.bind("<Button-1>",
                                    lambda event: webbrowser.open_new(self.url3))
-
-
         self.frame_article4 = ctk.CTkFrame(self, fg_color="#E2EDF7")
         self.frame_article4.place(relx=0.89, rely=0.74, anchor="e")
         self.tree_label4 = ctk.CTkLabel(self.frame_article4, text= " ")
@@ -371,18 +381,19 @@ class Articles(tk.Frame):
                                          font=("Verdana", 18),
                                          wraplength=500,
                                          fg_color="#E2EDF7",
-                                         text_color="#189AB4",
+                                         text_color="#317353",
                                          bg_color="transparent")
         self.article_text.pack(side="left")
         self.url4 = "https://www.projectplanetid.com/post/7-ways-to-prevent-eco-anxiety"
         self.read_more_label4 = ctk.CTkLabel(self,
                                              text="Read More",
-                                             text_color="#189AB4",
+                                             text_color="#317353",
                                              fg_color="#E2EDF7",
                                              font=("Verdana", 15))
         self.read_more_label4.place(relx=0.76, rely=0.88, anchor="e")
         self.read_more_label4.bind("<Button-1>",
                                    lambda event: webbrowser.open_new(self.url4))
+
 
 class EnrollmentGui(tk.Frame):
 
@@ -396,49 +407,59 @@ class EnrollmentGui(tk.Frame):
         self.canvas.create_image(0, 0, image=self.bg_image, anchor="nw")
         self.canvas.create_text(620, 140, text="Enrollment Form",
                                 font=("Verdana", 70, "bold"),
-                                fill="#189AB4")
-        color = '#%02x%02x%02x' % (185, 200, 244)
+                                fill="#317353")
+        color = '#%02x%02x%02x' % (169, 200, 244)
         self.homebutton = ctk.CTkButton(self,
-                                text="Home",
-                                font=("Helvetica", 15,),
-                                bg_color=color,
-                                fg_color=color,
-                                command=lambda: controller.show_frame("MainMenuGui")
-                                )
+                                        text="Home",
+                                        font=("Helvetica", 20, "bold"),
+                                        bg_color=color,
+                                        fg_color=color,
+                                        command=
+                                        lambda:
+                                        controller.show_frame("MainMenuGui"))
         self.homebutton.place(relx=0.01, rely=0.02)
-        self.canvas.create_text(366, 30,
-                                text="About us",
-                                font=('Helvetica', 15,),
-                                fill='white'
-                                )
-        self.canvas.create_text(658, 30,
-                                text="Volunteer",
-                                font=('Helvetica', 15,),
-                                fill='white'
-                                )
-        self.canvas.create_text(950, 30,
-                                text="Blog",
-                                font=('Helvetica', 15,),
-                                fill='white'
-                                )
+        self.activity_button = ctk.CTkButton(self,
+                                             text="Activities",
+                                             font=("Helvetica", 20, "bold"),
+                                             bg_color="#aac4f5",
+                                             fg_color="#aac4f5",
+                                             command=
+                                             lambda:
+                                             controller.show_frame("EnrollGui")
+                                             )
+        self.activity_button.place(relx=0.40, rely=0.03, anchor='w')
+        self.about_button = ctk.CTkButton(self,
+                                          text="About us",
+                                          font=("Helvetica", 20, "bold"),
+                                          bg_color="#ced5f2",
+                                          fg_color="#ced5f2",
+                                          command=
+                                          lambda:
+                                          controller.show_frame("AboutUs"))
+        self.about_button.place(relx=0.85, rely=0.03, anchor='w')
         polygon=self.canvas.create_polygon(5, 15, 15, 5, 15, 10, 25, 10, 25, 20, 15,
-                                   20, 15, 25, 5, 15, fill="#189AB4")
+                                   20, 15, 25, 5, 15, fill="#317353")
         x0, y0, x1, y1 = self.canvas.bbox(polygon)
         button = self.canvas.create_rectangle(x0, y0, x1, y1, fill="", outline="")
         self.canvas.tag_bind(button,'<Button-1>', lambda event: controller.show_frame("EnrollGui"))
         self.canvas.create_text(440, 280, text="First Name",
                                 font=("Verdana", 20, "bold"),
-                                fill="#189AB4")
-
+                                fill="#317353")
         first_name_entry = ctk.CTkEntry(self, width=170,
-                                        height=50, font=("Verdana", 20),bg_color="white", fg_color="white", border_width=0)
+                                        height=50, font=("Verdana", 20),
+                                        bg_color="white", 
+                                        fg_color="white", 
+                                        border_width=0)
         self.canvas.create_window(375, 300, anchor="nw",
                                   window=first_name_entry)
         self.canvas.create_text(750, 280, text="Last Name",
                                 font=("Verdana", 20, "bold"),
-                                fill="#189AB4")
+                                fill="#317353")
         last_name_entry = ctk.CTkEntry(self, width=170,
-                                       height=50, font=("Verdana", 20), bg_color="#189AB4", fg_color="white", border_width=0)
+                                       height=50, font=("Verdana", 20), 
+                                       bg_color="#317353", 
+                                       fg_color="white", 
+                                       border_width=0)
         self.canvas.create_window(685, 300, anchor="nw",
                                   window=last_name_entry)
 
@@ -451,14 +472,18 @@ class EnrollmentGui(tk.Frame):
         self.canvas.create_window(580, 400, anchor="nw", window=phone_entry)"""
         self.canvas.create_text(620, 380, text="Email",
                                 font=("Verdana", 20, "bold"),
-                                fill="#189AB4")
+                                fill="#317353")
         email_entry = ctk.CTkEntry(self, width=300,
-                                   height=50, font=("Verdana", 20),bg_color="white", fg_color="white", border_width=0)
-        self.canvas.create_window(500, 400, anchor="nw", window=email_entry)
+                                   height=50, font=("Verdana", 20),
+                                   bg_color="white", 
+                                   fg_color="white", 
+                                   border_width=0)
+        self.canvas.create_window(500, 400, anchor="nw", 
+                                  window=email_entry)
 
         self.canvas.create_text(620, 490, text="Date of Birth",
                                 font=("Verdana", 20, "bold"),
-                                fill="#189AB4")
+                                fill="#317353")
 
         file_year = open(file='year.txt')
         read_year = file_year.readlines()
@@ -536,8 +561,8 @@ class EnrollmentGui(tk.Frame):
             con.close()
 
         enroll_button = ctk.CTkButton(self, width=100, height=50,
-                                      text="Enroll", fg_color="#189AB4",
-                                      bg_color="#189AB4",
+                                      text="Enroll", fg_color="#317353",
+                                      bg_color="#317353",
                                       font=("Verdana", 50),
                                       command=lambda: (button_function(),
                                                        save_data_success())
@@ -547,6 +572,80 @@ class EnrollmentGui(tk.Frame):
         def save_data_success():
             messagebox.showinfo(title="Success", message="Data saved successfully!")
 
+
+class AboutUs(tk.Frame):
+
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        self.controller = controller
+        self.image = tk.PhotoImage(file="bb.png")
+        self.canvas = tk.Canvas(self)
+        self.font_style = tkFont.Font(family="Verdana",
+                                      size=16,
+                                      slant="italic")
+        self.canvas.pack(fill='both', expand=True)
+        self.canvas.create_image(0, 0, image=self.image, anchor="nw")
+        self.canvas.create_text(650, 140,
+                                text="About us",
+                                font=("Verdana", 70, "bold"),
+                                fill='#317353')
+
+        color = '#%02x%02x%02x' % (169, 200, 244)
+        self.homebutton = ctk.CTkButton(self,
+                                        text="Home",
+                                        font=("Helvetica", 20, "bold"),
+                                        bg_color=color,
+                                        fg_color=color,
+                                        command=
+                                        lambda:
+                                        controller.show_frame("MainMenuGui"))
+        self.homebutton.place(relx=0.01, rely=0.02)
+
+        self.activity_button = ctk.CTkButton(self,
+                                             text="Activities",
+                                             font=("Helvetica", 20, "bold"),
+                                             bg_color="#aac4f5",
+                                             fg_color="#aac4f5",
+                                             command=
+                                             lambda:
+                                             controller.show_frame("EnrollGui")
+                                             )
+        self.activity_button.place(relx=0.40, rely=0.03, anchor='w')
+        self.about_button = ctk.CTkButton(self,
+                                          text="About us",
+                                          font=("Helvetica", 20, "bold"),
+                                          bg_color="#ced5f2",
+                                          fg_color="#ced5f2",
+                                          command=
+                                          lambda:
+                                          controller.show_frame("AboutUs"))
+        self.about_button.place(relx=0.85, rely=0.03, anchor='w')
+        self.canvas.create_text(500, 250,
+                                text="Eco Therapy is an application that targets the\
+                                    \nsymptoms of eco anxiety.",
+                                font=('Verdana', 18),
+                                fill='#317353')
+        self.canvas.create_text(600, 450,
+                                text="Eco anxiety is a globally growing phenomenon among all ages.\
+                                    \nIt includes strong feelings of worry and fear about the decline\
+                                    \nin the environment.\
+                                    \nWays in which eco anxiety can be relieves are:\
+                                    \n\n1. Taking action to help the climate, no matter how small\
+                                    \n2.Recognizing and understanding eco anxiety\
+                                    \n3.Discussions about eco anxiety in groups\
+                                    \n4.Connecting with nature in positive ways",
+
+                                font=('Verdana', 18),
+                                fill='#317353')
+        self.canvas.create_text(1280, 350,
+                                text="Contributors:\
+                                    \n\nAxel Friberg\
+                                    \nMiina Mäkinen\
+                                    \nMarianna Psyllou\
+                                    \nCourage Räsänen\
+                                    \nKim Zugic",
+                                font=("Verdana",18),
+                                fill='#317353')
 
 
 if __name__ == "__main__":
