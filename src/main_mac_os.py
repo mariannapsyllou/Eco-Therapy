@@ -565,7 +565,8 @@ class EnrollmentGui(FrameTemplate, tk.Frame):
                                              height=50, font=("Verdana", 20),
                                              bg_color="white",
                                              fg_color="white",
-                                             border_width=0)
+                                             border_width=0,
+                                             text_color="#317353")
         self.canvas.create_window(475, 350, anchor="nw",
                                   window=self.first_name_entry)
         self.canvas.create_text(815, 330, text="Last Name",
@@ -573,9 +574,10 @@ class EnrollmentGui(FrameTemplate, tk.Frame):
                                 fill="#317353")
         self.last_name_entry = ctk.CTkEntry(self, width=170,
                                             height=50, font=("Verdana", 20),
-                                            bg_color="#317353",
+                                            bg_color="black",
                                             fg_color="white",
-                                            border_width=0)
+                                            border_width=0,
+                                            text_color="#317353")
         self.canvas.create_window(750, 350, anchor="nw",
                                   window=self.last_name_entry)
 
@@ -586,7 +588,8 @@ class EnrollmentGui(FrameTemplate, tk.Frame):
                                         height=50, font=("Verdana", 20),
                                         bg_color="white",
                                         fg_color="white",
-                                        border_width=0)
+                                        border_width=0,
+                                        text_color="#317353")
         self.canvas.create_window(580, 480, anchor="nw",
                                   window=self.email_entry)
 
@@ -604,6 +607,7 @@ class EnrollmentGui(FrameTemplate, tk.Frame):
                                               fg_color="white",
                                               button_color="white",
                                               font=("Verdana", 15),
+                                              text_color="#317353",
                                               dynamic_resizing=False)
         self.options_year.set("Year")
         self.canvas.create_window(570, 600, anchor="nw",
@@ -619,6 +623,7 @@ class EnrollmentGui(FrameTemplate, tk.Frame):
                                                fg_color="white",
                                                button_color="white",
                                                font=("Verdana", 15),
+                                               text_color="#317353",
                                                dynamic_resizing=False)
         self.options_month.set("Month")
         self.canvas.create_window(675, 600, anchor="nw",
@@ -634,6 +639,7 @@ class EnrollmentGui(FrameTemplate, tk.Frame):
                                              fg_color="white",
                                              button_color="white",
                                              font=("Verdana", 15),
+                                             text_color="#317353",
                                              dynamic_resizing=False)
         self.options_day.set("Day")
         self.canvas.create_window(790, 600, anchor="nw",
@@ -659,7 +665,7 @@ class EnrollmentGui(FrameTemplate, tk.Frame):
                          f"{self.options_month.get()}-{self.options_day.get()}"
                          )
         if not re.match(email_regex, self.email_entry.get()):
-            messagebox.showinfo(title="Error", message="Invalid email adress")
+            messagebox.showerror(title="Error", message="Invalid email adress")
             return
         self.database.write_db(self.first_name_entry.get(),
                                self.last_name_entry.get(),
@@ -693,7 +699,7 @@ class AboutUs(FrameTemplate, tk.Frame):
                                 text="About us",
                                 font=("Verdana", 100, "bold"),
                                 fill='#317353')
-        self.canvas.create_text(450, 250,
+        self.canvas.create_text(350, 250,
                                 text="Eco Therapy is an"
                                      " application that targets the"
                                      " \nsymptoms of eco anxiety.",

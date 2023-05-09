@@ -28,7 +28,7 @@ class App(tk.Tk):
 
         self.attributes('-fullscreen', True)
         self.show_frame("MainMenuGui")
-    
+
     def show_frame(self, page_name):
         frame = self.frames[page_name]
         frame.tkraise()
@@ -178,8 +178,8 @@ class EnrollGui(FrameTemplate, tk.Frame):
                                 fill="#317353"
                                 )
         button_1 = ctk.CTkButton(
-                                self, 
-                                width=230, 
+                                self,
+                                width=230,
                                 height=150,
                                 corner_radius=5,
                                 # the button text is derived from the events table in the database
@@ -197,8 +197,8 @@ class EnrollGui(FrameTemplate, tk.Frame):
         self.canvas.create_window(130, 400, anchor="nw", window=button_1)
 
         button_2 = ctk.CTkButton(
-                                self, 
-                                width=230, 
+                                self,
+                                width=230,
                                 height=150,
                                 corner_radius=5,
                                 # the button text is derived from the events table in the database
@@ -216,8 +216,8 @@ class EnrollGui(FrameTemplate, tk.Frame):
         self.canvas.create_window(530, 400, anchor="nw", window=button_2)
 
         button_3 = ctk.CTkButton(
-                                self, 
-                                width=230, 
+                                self,
+                                width=230,
                                 height=150,
                                 corner_radius=5,
                                 # the button text is derived from the events table in the database
@@ -374,19 +374,21 @@ class EnrollmentGui(FrameTemplate, tk.Frame):
                                 fill="#317353")
         first_name_entry = ctk.CTkEntry(self, width=170,
                                         height=50, font=("Verdana", 20),
-                                        bg_color="white", 
-                                        fg_color="white", 
-                                        border_width=0)
+                                        bg_color="white",
+                                        fg_color="white",
+                                        border_width=0,
+                                        text_color="#317353")
         self.canvas.create_window(375, 300, anchor="nw",
                                   window=first_name_entry)
         self.canvas.create_text(750, 280, text="Last Name",
                                 font=("Verdana", 20, "bold"),
                                 fill="#317353")
         last_name_entry = ctk.CTkEntry(self, width=170,
-                                       height=50, font=("Verdana", 20), 
-                                       bg_color="#317353", 
-                                       fg_color="white", 
-                                       border_width=0)
+                                       height=50, font=("Verdana", 20),
+                                       bg_color="#317353",
+                                       fg_color="white",
+                                       border_width=0,
+                                       text_color="#317353")
         self.canvas.create_window(685, 300, anchor="nw",
                                   window=last_name_entry)
 
@@ -402,10 +404,11 @@ class EnrollmentGui(FrameTemplate, tk.Frame):
                                 fill="#317353")
         email_entry = ctk.CTkEntry(self, width=300,
                                    height=50, font=("Verdana", 20),
-                                   bg_color="white", 
-                                   fg_color="white", 
-                                   border_width=0)
-        self.canvas.create_window(500, 400, anchor="nw", 
+                                   bg_color="white",
+                                   fg_color="white",
+                                   border_width=0,
+                                   text_color="#317353")
+        self.canvas.create_window(500, 400, anchor="nw",
                                   window=email_entry)
 
         self.canvas.create_text(620, 490, text="Date of Birth",
@@ -426,6 +429,7 @@ class EnrollmentGui(FrameTemplate, tk.Frame):
                                          fg_color="white",
                                          button_color="white",
                                          font=("Verdana", 15),
+                                         text_color="#317353",
                                          dynamic_resizing=False)
         options_year.set("Year")
         self.canvas.create_window(480, 510, anchor="nw", window=options_year)
@@ -444,6 +448,7 @@ class EnrollmentGui(FrameTemplate, tk.Frame):
                                           fg_color="white",
                                           button_color="white",
                                           font=("Verdana", 15),
+                                          text_color="#317353",
                                           dynamic_resizing=False)
         options_month.set("Month")
         self.canvas.create_window(595, 510, anchor="nw", window=options_month)
@@ -462,6 +467,7 @@ class EnrollmentGui(FrameTemplate, tk.Frame):
                                         fg_color="white",
                                         button_color="white",
                                         font=("Verdana", 15),
+                                        text_color="#317353",
                                         dynamic_resizing=False)
         options_day.set("Day")
         self.canvas.create_window(710, 510, anchor="nw", window=options_day)
