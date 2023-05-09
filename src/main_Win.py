@@ -21,7 +21,7 @@ class App(tk.Tk):
         container.grid_rowconfigure(0, weight=1)
         container.grid_columnconfigure(0, weight=1)
         self.frames = {}
-        for F in (MainMenuGui, EnrollGui, Articles, EnrollmentGui, AboutUs):
+        for F in (MainMenuGui, EnrollGui, Articles, EnrollmentGui, EnrollMessage, AboutUs):
             page_name = F.__name__
             frame = F(parent=container, controller=self)
             frame.grid(row=0, column=0, sticky="nsew")
@@ -492,15 +492,15 @@ class EnrollmentGui(FrameTemplate, tk.Frame):
                                       text="Enroll", fg_color="#317353",
                                       bg_color="#317353",
                                       font=("Verdana", 50),
-                                      command=lambda: self.execute_db())
+                                      command=lambda: [self.execute_db(), controller.show_frame("EnrollMessage")])
 
         self.canvas.create_window(570, 600, anchor="nw", window=enroll_button)
-
+    '''''
     def save_data_success(self):
         """Displays message-box if data is saved correctly"""
         messagebox.showinfo(title="Success",
                             message="Data saved successfully!")
-
+    '''
     def execute_db(self):
         """Writes data to db and executes confirmation message"""
         email_regex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
@@ -515,7 +515,19 @@ class EnrollmentGui(FrameTemplate, tk.Frame):
                                self.email_entry.get(),
                                self.birthday, EVENTID)
 
-        self.save_data_success()
+        # self.save_data_success()
+
+
+class EnrollMessage(FrameTemplate, tk.Frame):
+    def __init__(self, parent, controller):
+        super().__init__(parent, controller)
+        FrameTemplate.__init__(self, parent, controller)
+        self.controller = controller
+        self.canvas.create_text(640, 340,
+                                text="Thank you for joining this event!",
+                                font=("Verdana", 50, "bold"),
+                                fill='#317353')
+
 
 class AboutUs(FrameTemplate, tk.Frame):
 
