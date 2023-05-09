@@ -19,7 +19,6 @@ import customtkinter as ctk
 import read_db
 
 
-
 class App(tk.Tk):
     """The main application class that creates and manages the GUI.
 
@@ -53,12 +52,12 @@ class App(tk.Tk):
         container.grid_columnconfigure(0, weight=1)
         self.frames = {}
 
-        for F in (MainMenuGui, EnrollGui, Articles, EnrollmentGui, AboutUs):
+        for F in (MainMenu, Activities, Articles, Enrollment, AboutUs):
             page_name = F.__name__
             frame = F(parent=container, controller=self)
             self.frames[page_name] = frame
             frame.grid(row=0, column=0, sticky="nsew")
-        self.show_frame("MainMenuGui")
+        self.show_frame("MainMenu")
 
     def show_frame(self, page_name):
         """Raises frames"""
@@ -108,7 +107,7 @@ class FrameTemplate(tk.Frame):
                                         bg_color=color,
                                         fg_color=color,
                                         command=lambda:
-                                        controller.show_frame("MainMenuGui"))
+                                        controller.show_frame("MainMenu"))
         self.homebutton.place(relx=0.01, rely=0.02)
 
         self.activity_button = ctk.CTkButton(self,
@@ -117,7 +116,7 @@ class FrameTemplate(tk.Frame):
                                              bg_color="#aac4f5",
                                              fg_color="#aac4f5",
                                              command=lambda:
-                                             controller.show_frame("EnrollGui")
+                                             controller.show_frame("Activities")
                                              )
         self.activity_button.place(relx=0.40, rely=0.03, anchor='w')
         self.about_button = ctk.CTkButton(self,
@@ -130,7 +129,7 @@ class FrameTemplate(tk.Frame):
         self.about_button.place(relx=0.85, rely=0.03, anchor='w')
 
 
-class MainMenuGui(FrameTemplate, tk.Frame):
+class MainMenu(FrameTemplate, tk.Frame):
     """
     A class representing the main menu GUI of the Eco Therapy application.
 
@@ -177,7 +176,7 @@ class MainMenuGui(FrameTemplate, tk.Frame):
                                      height=60,
                                      width=190,
                                      command=lambda:
-                                     controller.show_frame("EnrollGui")
+                                     controller.show_frame("Activities")
                                      )
         self.button1.update_idletasks()
         self.button1.place(relx=0.14, rely=0.59, anchor='w')
@@ -214,7 +213,7 @@ class MainMenuGui(FrameTemplate, tk.Frame):
                                 fill="white")
 
 
-class EnrollGui(FrameTemplate, tk.Frame):
+class Activities(FrameTemplate, tk.Frame):
     """A graphical user interface for enrolling in events.
 
     This class extends the `FrameTemplate` and `tk.Frame`
@@ -276,7 +275,7 @@ class EnrollGui(FrameTemplate, tk.Frame):
                                  hover_color="#22533C",
                                  command=lambda:
                                  self.set_eventid(controller,
-                                                  "EnrollmentGui",
+                                                  "Activities",
                                                   self.events[0][0]
                                                   ))
         self.canvas.create_window(180, 600, anchor="nw", window=button_1)
@@ -299,7 +298,7 @@ class EnrollGui(FrameTemplate, tk.Frame):
                                  border_color="#97C2AD",
                                  hover_color="#22533C",
                                  command=lambda:
-                                 self.set_eventid(controller, "EnrollmentGui",
+                                 self.set_eventid(controller, "Enrollment",
                                                   self.events[1][0])
                                  )
         self.canvas.create_window(580, 600, anchor="nw", window=button_2)
@@ -324,7 +323,7 @@ class EnrollGui(FrameTemplate, tk.Frame):
                                  hover_color="#22533C",
                                  command=lambda:
                                  self.set_eventid(controller,
-                                                  "EnrollmentGui",
+                                                  "Enrollment",
                                                   self.events[2][0])
                                  )
         self.canvas.create_window(980, 600, anchor="nw", window=button_3)
@@ -514,7 +513,7 @@ class Articles(FrameTemplate, tk.Frame):
                                                             self.url4))
 
 
-class EnrollmentGui(FrameTemplate, tk.Frame):
+class Enrollment(FrameTemplate, tk.Frame):
     """
     A class that inherits from FrameTemplate and tk.Frame and represents the
     enrollment form for the Eco Therapy application. The class provides various
@@ -556,7 +555,7 @@ class EnrollmentGui(FrameTemplate, tk.Frame):
         button = self.canvas.create_rectangle(x_0, y_0, x_1, y_1, fill="",
                                               outline="")
         self.canvas.tag_bind(button, '<Button-1>', lambda event:
-                             controller.show_frame("EnrollGui"))
+                             controller.show_frame("Activities"))
         self.canvas.create_text(540, 330, text="First Name",
                                 font=("Verdana", 25, "bold"),
                                 fill="#317353")

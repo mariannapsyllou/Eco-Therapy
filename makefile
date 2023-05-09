@@ -96,24 +96,28 @@ test: lint coverage
 # ---------------------------------------------------------
 # Work with generating documentation.
 #
+
 .PHONY: pydoc
 pydoc:
 	@$(call MESSAGE,$@)
-	# This does not work on Windows installed Python
-	$(PYTHON) -m pydoc -w "$(PWD)"
 	install -d doc/pydoc
+	$(PYTHON) -m pydoc -w src/*.py
 	mv *.html doc/pydoc
 
 pdoc:
 	@$(call MESSAGE,$@)
-	pdoc --force --html --output-dir doc/pdoc .
+	pdoc --force --html --output-dir doc/pdoc src/*.py
 
 pyreverse:
 	@$(call MESSAGE,$@)
 	install -d doc/pyreverse
-	pyreverse *.py -a
+	pyreverse src/*.py
+	dot -Tpng classes.dot -o doc/pyreverse/classes.png
+	dot -Tpng packages.dot -o doc/pyreverse/packages.png
+	rm -f classes.dot packages.dot
+
+doc: pdoc pyreverse #pydoc sphinx
 
 .PHONY: format
 format:
 	autopep8 --in-place --recursive src/*.py
-

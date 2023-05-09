@@ -2,11 +2,11 @@ import tkinter as tk
 import customtkinter as ctk
 import tkinter.font as tkFont
 import webbrowser
-import read_db 
+import read_db
 import sqlite3
 import re
 from tkinter import messagebox
-from tkinter import PhotoImage
+
 
 con = sqlite3.connect("eco-therapy.db")
 
