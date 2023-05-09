@@ -2,8 +2,9 @@ import tkinter as tk
 import customtkinter as ctk
 import tkinter.font as tkFont
 import webbrowser
-from read_db import format_data, read_data
+import read_db 
 import sqlite3
+import re
 from tkinter import messagebox
 from tkinter import PhotoImage
 
@@ -137,7 +138,8 @@ class EnrollGui(FrameTemplate, tk.Frame):
         super().__init__(parent, controller)
         FrameTemplate.__init__(self, parent, controller)
         self.controller = controller
-        self.events = format_data(read_data())
+        self.read_db = read_db.DbInteraction()
+        self.events = self.read_db.read_data()
         self.canvas.create_text(680, 140,
                                 text="Activities",
                                 font=("Verdana", 70, "bold"),
@@ -356,155 +358,164 @@ class Articles(FrameTemplate, tk.Frame):
 
 
 class EnrollmentGui(FrameTemplate, tk.Frame):
+    """
+    A class that inherits from FrameTemplate and tk.Frame and represents the
+    enrollment form for the Eco Therapy application. The class provides various
+    fields to input the personal details of the user, like first name,
+    last name,email, and date of birth, which are then written to a database
+    by clicking the enroll button.
+    The class also contains functions to display a message-box if the
+    data is saved successfully and to execute the writing process.
+
+    Args:
+    parent: The parent frame/widget of the current frame.
+    controller: The main controller of the Eco Therapy application.
+
+    Attributes:
+    - parent (tk.Tk): The parent widget.
+    - controller (tk.Tk): The main widget.
+    - database (read_db.DbInteraction): An instance of the DbInteraction class,
+      used for reading from and writing to the database.
+
+    Methods:
+    - save_data_success(self): Displays a message-box if the data is saved
+      successfully.
+    - execute_db(self): Writes the data to the database and executes the
+      confirmation message.
+    """
 
     def __init__(self, parent, controller):
         super().__init__(parent, controller)
         FrameTemplate.__init__(self, parent, controller)
         self.controller = controller
+        self.database = read_db.DbInteraction()
         self.canvas.create_text(620, 140, text="Enrollment Form",
-                                font=("Verdana", 70, "bold"),
+                                font=("Verdana", 60, "bold"),
                                 fill="#317353")
-        polygon=self.canvas.create_polygon(5, 15, 15, 5, 15, 10, 25, 10, 25, 20, 15,
-                                   20, 15, 25, 5, 15, fill="#317353")
-        x0, y0, x1, y1 = self.canvas.bbox(polygon)
-        button = self.canvas.create_rectangle(x0, y0, x1, y1, fill="", outline="")
-        self.canvas.tag_bind(button,'<Button-1>', lambda event: controller.show_frame("EnrollGui"))
+        polygon = self.canvas.create_polygon(
+            5, 15, 15, 5, 15, 10, 25, 10, 25, 20, 15,
+            20, 15, 25, 5, 15, fill="#317353")
+        x_0, y_0, x_1, y_1 = self.canvas.bbox(polygon)
+        button = self.canvas.create_rectangle(x_0, y_0, x_1, y_1, fill="",
+                                              outline="")
+        self.canvas.tag_bind(button, '<Button-1>', lambda event:
+                             controller.show_frame("EnrollGui"))
         self.canvas.create_text(440, 280, text="First Name",
                                 font=("Verdana", 20, "bold"),
                                 fill="#317353")
-        first_name_entry = ctk.CTkEntry(self, width=170,
+
+        self.first_name_entry = ctk.CTkEntry(self, width=170,
+                                             height=50, font=("Verdana", 20),
+                                             bg_color="white",
+                                             fg_color="white",
+                                             border_width=0,
+                                             text_color="#317353")
+        self.canvas.create_window(375, 300, anchor="nw",
+                                  window=self.first_name_entry)
+        self.canvas.create_text(750, 280, text="Last Name",
+                                font=("Verdana", 20, "bold"),
+                                fill="#317353")
+        self.last_name_entry = ctk.CTkEntry(self, width=170,
+                                            height=50, font=("Verdana", 20),
+                                            bg_color="black",
+                                            fg_color="white",
+                                            border_width=0,
+                                            text_color="#317353")
+        self.canvas.create_window(685, 300, anchor="nw",
+                                  window=self.last_name_entry)
+
+        self.canvas.create_text(620, 380, text="Email",
+                                font=("Verdana", 20, "bold"),
+                                fill="#317353")
+        self.email_entry = ctk.CTkEntry(self, width=300,
                                         height=50, font=("Verdana", 20),
                                         bg_color="white",
                                         fg_color="white",
                                         border_width=0,
                                         text_color="#317353")
-        self.canvas.create_window(375, 300, anchor="nw",
-                                  window=first_name_entry)
-        self.canvas.create_text(750, 280, text="Last Name",
-                                font=("Verdana", 20, "bold"),
-                                fill="#317353")
-        last_name_entry = ctk.CTkEntry(self, width=170,
-                                       height=50, font=("Verdana", 20),
-                                       bg_color="#317353",
-                                       fg_color="white",
-                                       border_width=0,
-                                       text_color="#317353")
-        self.canvas.create_window(685, 300, anchor="nw",
-                                  window=last_name_entry)
-
-
-        """ self.canvas.create_text(675, 380, text="Phone Number",
-                                font=("Verdana", 25, "bold"),
-                                fill="white")
-        phone_entry = ctk.CTkEntry(self, width=300,
-                                   height=50, font=("Verdana", 20))
-        self.canvas.create_window(580, 400, anchor="nw", window=phone_entry)"""
-        self.canvas.create_text(620, 380, text="Email",
-                                font=("Verdana", 20, "bold"),
-                                fill="#317353")
-        email_entry = ctk.CTkEntry(self, width=300,
-                                   height=50, font=("Verdana", 20),
-                                   bg_color="white",
-                                   fg_color="white",
-                                   border_width=0,
-                                   text_color="#317353")
         self.canvas.create_window(500, 400, anchor="nw",
-                                  window=email_entry)
+                                  window=self.email_entry)
 
         self.canvas.create_text(620, 490, text="Date of Birth",
                                 font=("Verdana", 20, "bold"),
                                 fill="#317353")
 
-        file_year = open(file='year.txt')
-        read_year = file_year.readlines()
-        year = []
+        with open(file='year.txt', encoding="UTF-8") as file_year:
+            year = [line.strip() for line in file_year.readlines()]
 
-        for line in read_year:
-            year.append(line.strip())
+        self.options_year = ctk.CTkOptionMenu(self, values=year,
+                                              width=100,
+                                              height=30,
+                                              bg_color="white",
+                                              fg_color="white",
+                                              button_color="white",
+                                              font=("Verdana", 15),
+                                              text_color="#317353",
+                                              dynamic_resizing=False)
+        self.options_year.set("Year")
+        self.canvas.create_window(480, 510, anchor="nw",
+                                  window=self.options_year)
 
-        options_year = ctk.CTkOptionMenu(self, values=year,
-                                         width=100,
-                                         height=30,
-                                         bg_color="white",
-                                         fg_color="white",
-                                         button_color="white",
-                                         font=("Verdana", 15),
-                                         text_color="#317353",
-                                         dynamic_resizing=False)
-        options_year.set("Year")
-        self.canvas.create_window(480, 510, anchor="nw", window=options_year)
+        with open(file='month.txt', encoding="UTF-8") as file_month:
+            month = [line.strip() for line in file_month.readlines()]
 
-        file_month = open(file='month.txt')
-        read_month = file_month.readlines()
-        month = []
+        self.options_month = ctk.CTkOptionMenu(self, values=month,
+                                               width=110,
+                                               height=30,
+                                               bg_color="white",
+                                               fg_color="white",
+                                               button_color="white",
+                                               font=("Verdana", 15),
+                                               text_color="#317353",
+                                               dynamic_resizing=False)
+        self.options_month.set("Month")
+        self.canvas.create_window(595, 510, anchor="nw",
+                                  window=self.options_month)
 
-        for line in read_month:
-            month.append(line.strip())
+        with open(file='day.txt', encoding="UTF-8") as file_day:
+            read_day = [line.strip() for line in file_day.readlines()]
 
-        options_month = ctk.CTkOptionMenu(self, values=month,
-                                          width=110,
-                                          height=30,
-                                          bg_color="white",
-                                          fg_color="white",
-                                          button_color="white",
-                                          font=("Verdana", 15),
-                                          text_color="#317353",
-                                          dynamic_resizing=False)
-        options_month.set("Month")
-        self.canvas.create_window(595, 510, anchor="nw", window=options_month)
-
-        file_day = open(file='day.txt')
-        read_day = file_day.readlines()
-        days = []
-
-        for line in read_day:
-            days.append(line.strip())
-
-        options_day = ctk.CTkOptionMenu(self, values=days,
-                                        width=100,
-                                        height=30,
-                                        bg_color="white",
-                                        fg_color="white",
-                                        button_color="white",
-                                        font=("Verdana", 15),
-                                        text_color="#317353",
-                                        dynamic_resizing=False)
-        options_day.set("Day")
-        self.canvas.create_window(710, 510, anchor="nw", window=options_day)
-
-        def button_function():
-            first_name = first_name_entry.get()
-            last_name = last_name_entry.get()
-            email = email_entry.get()
-            year = options_year.get()
-            month = options_month.get()
-            day = options_day.get()
-            birthday = f"{year}-{month}-{day}"
-
-            c = con.cursor()
-
-            # Insert user into users table
-            c.execute("INSERT INTO users (firstname, lastname, email, birthdate) VALUES (?, ?, ?, ?)",
-                    (first_name, last_name, email, birthday))
-            user_id = c.lastrowid
-
-            c.execute("INSERT INTO enrolled (user_id, event_id) VALUES (?, ?)", (user_id, EVENTID))
-
-            con.commit()
-            con.close()
+        self.options_day = ctk.CTkOptionMenu(self, values=read_day,
+                                             width=100,
+                                             height=30,
+                                             bg_color="white",
+                                             fg_color="white",
+                                             button_color="white",
+                                             font=("Verdana", 15),
+                                             text_color="#317353",
+                                             dynamic_resizing=False)
+        self.options_day.set("Day")
+        self.canvas.create_window(710, 510, anchor="nw",
+                                  window=self.options_day)
 
         enroll_button = ctk.CTkButton(self, width=100, height=50,
                                       text="Enroll", fg_color="#317353",
                                       bg_color="#317353",
                                       font=("Verdana", 50),
-                                      command=lambda: (button_function(),
-                                                       save_data_success())
-                                      )
+                                      command=lambda: self.execute_db())
+
         self.canvas.create_window(570, 600, anchor="nw", window=enroll_button)
 
-        def save_data_success():
-            messagebox.showinfo(title="Success", message="Data saved successfully!")
+    def save_data_success(self):
+        """Displays message-box if data is saved correctly"""
+        messagebox.showinfo(title="Success",
+                            message="Data saved successfully!")
 
+    def execute_db(self):
+        """Writes data to db and executes confirmation message"""
+        email_regex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
+        self.birthday = (f"{self.options_year.get()}-"
+                         f"{self.options_month.get()}-{self.options_day.get()}"
+                         )
+        if not re.match(email_regex, self.email_entry.get()):
+            messagebox.showerror(title="Error", message="Invalid email adress")
+            return
+        self.database.write_db(self.first_name_entry.get(),
+                               self.last_name_entry.get(),
+                               self.email_entry.get(),
+                               self.birthday, EVENTID)
+
+        self.save_data_success()
 
 class AboutUs(FrameTemplate, tk.Frame):
 
