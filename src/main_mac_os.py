@@ -14,8 +14,10 @@ import tkinter as tk
 from tkinter import messagebox
 import tkinter.font as tkFont
 import webbrowser
+import re
 import customtkinter as ctk
 import read_db
+
 
 
 class App(tk.Tk):
@@ -34,7 +36,7 @@ class App(tk.Tk):
         title_font (tkFont.Font): The font used for the window title.
 
     Methods:
-        __init__(self, **args): Initializes the main window and creates the 
+        __init__(self, **args): Initializes the main window and creates the
         frames.
         show_frame(self, page_name): Raises the frame corresponding to the
         given name.
@@ -66,7 +68,7 @@ class App(tk.Tk):
 
 class FrameTemplate(tk.Frame):
     """
-    A template for creating frames with a background image and buttons for 
+    A template for creating frames with a background image and buttons for
     navigating to other frames.
 
     Attributes:
@@ -514,39 +516,31 @@ class Articles(FrameTemplate, tk.Frame):
 
 class EnrollmentGui(FrameTemplate, tk.Frame):
     """
-    A class that defines a frame for displaying articles about eco-anxiety
-    and climate change, and provides links to read more.
+    A class that inherits from FrameTemplate and tk.Frame and represents the
+    enrollment form for the Eco Therapy application. The class provides various
+    fields to input the personal details of the user, like first name,
+    last name,email, and date of birth, which are then written to a database
+    by clicking the enroll button.
+    The class also contains functions to display a message-box if the
+    data is saved successfully and to execute the writing process.
 
-    Parameters:
-    -----------
-    parent : tk widget
-        The parent widget.
-    controller : tk object
-        The controller of the application.
+    Args:
+    parent: The parent frame/widget of the current frame.
+    controller: The main controller of the Eco Therapy application.
 
     Attributes:
-    ----------
-    frame_article1 : ctk.CTkFrame
-        A custom themed frame for displaying the first article.
-    frame_article2 : ctk.CTkFrame
-        A custom themed frame for displaying the second article.
-    frame_article3 : ctk.CTkFrame
-        A custom themed frame for displaying the third article.
-    article_text : ctk.CTkLabel
-        A custom themed label for displaying the text of each article.
-    read_more_label : ctk.CTkLabel
-        A custom themed label that serves as a link to the first article.
-    read_more_label2 : ctk.CTkLabel
-        A custom themed label that serves as a link to the second article.
-    read_more_label3 : ctk.CTkLabel
-        A custom themed label that serves as a link to the third article.
-    url1 : str
-        The url of the first article.
-    url2 : str
-        The url of the second article.
-    url3 : str
-        The url of the third article.
+    - parent (tk.Tk): The parent widget.
+    - controller (tk.Tk): The main widget.
+    - database (read_db.DbInteraction): An instance of the DbInteraction class,
+      used for reading from and writing to the database.
+
+    Methods:
+    - save_data_success(self): Displays a message-box if the data is saved
+      successfully.
+    - execute_db(self): Writes the data to the database and executes the
+      confirmation message.
     """
+
     def __init__(self, parent, controller):
         super().__init__(parent, controller)
         FrameTemplate.__init__(self, parent, controller)
@@ -618,7 +612,6 @@ class EnrollmentGui(FrameTemplate, tk.Frame):
         with open(file='month.txt', encoding="UTF-8") as file_month:
             month = [line.strip() for line in file_month.readlines()]
 
-
         self.options_month = ctk.CTkOptionMenu(self, values=month,
                                                width=110,
                                                height=30,
@@ -661,13 +654,18 @@ class EnrollmentGui(FrameTemplate, tk.Frame):
 
     def execute_db(self):
         """Writes data to db and executes confirmation message"""
+        email_regex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
         self.birthday = (f"{self.options_year.get()}-"
                          f"{self.options_month.get()}-{self.options_day.get()}"
                          )
+        if not re.match(email_regex, self.email_entry.get()):
+            messagebox.showinfo(title="Error", message="Invalid email adress")
+            return
         self.database.write_db(self.first_name_entry.get(),
                                self.last_name_entry.get(),
                                self.email_entry.get(),
                                self.birthday, EVENTID)
+
         self.save_data_success()
 
 
