@@ -34,7 +34,7 @@ class App(tk.Tk):
             self.frames[page_name] = frame
 
         self.attributes("-fullscreen", True)
-        self.show_frame("MainMenuGui")
+        self.show_frame("MainMenu")
 
     def show_frame(self, page_name):
         frame = self.frames[page_name]
