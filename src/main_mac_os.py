@@ -52,7 +52,7 @@ class App(tk.Tk):
         container.grid_columnconfigure(0, weight=1)
         self.frames = {}
 
-        for F in (MainMenu, Activities, Articles, Enrollment, AboutUs):
+        for F in (MainMenu, Activities, Articles, Enrollment, AboutUs, Message):
             page_name = F.__name__
             frame = F(parent=container, controller=self)
             self.frames[page_name] = frame
@@ -652,11 +652,6 @@ class Enrollment(FrameTemplate, tk.Frame):
 
         self.canvas.create_window(650, 700, anchor="nw", window=enroll_button)
 
-    def save_data_success(self):
-        """Displays message-box if data is saved correctly"""
-        messagebox.showinfo(title="Success",
-                            message="Data saved successfully!")
-
     def execute_db(self):
         """Writes data to db and executes confirmation message"""
         email_regex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
@@ -670,8 +665,26 @@ class Enrollment(FrameTemplate, tk.Frame):
                                self.last_name_entry.get(),
                                self.email_entry.get(),
                                self.birthday, EVENTID)
+        self.controller.show_frame("Message")
 
-        self.save_data_success()
+
+
+class Message(FrameTemplate, tk.Frame):
+    def __init__(self, parent, controller):
+        super().__init__(parent, controller)
+        FrameTemplate.__init__(self, parent, controller)
+        self.controller = controller
+        self.canvas.create_text(740, 250,
+                                text="Thank you for joining this event!",
+                                font=("Verdana", 50, "bold"),
+                                fill='#317353')
+        home_button = ctk.CTkButton(self, width=100, height=50,
+                                    text="Home Page", fg_color="#317353",
+                                    bg_color="#317353",
+                                    font=("Verdana", 30),
+                                    command=lambda:
+                                    controller.show_frame("MainMenu"))
+        self.canvas.create_window(650, 400, anchor="nw", window=home_button)
 
 
 class AboutUs(FrameTemplate, tk.Frame):
