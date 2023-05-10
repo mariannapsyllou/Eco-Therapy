@@ -60,7 +60,7 @@ clean-all: clean clean-doc
 .PHONY: lint pylint flake8
 pylint:
 	@$(call MESSAGE,$@)
-	cd src && $(PYTHON) -m pylint --disable=too-many-ancestors,too-many-instance-attributes,too-many-locals --ignore=main_Win.py *.py
+	cd src && $(PYTHON) -m pylint --disable=too-many-ancestors,too-many-instance-attributes,too-many-locals --ignore=main_win.py *.py
 
 
 flake8:

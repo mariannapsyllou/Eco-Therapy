@@ -672,8 +672,20 @@ class Enrollment(FrameTemplate, tk.Frame):
         self.controller.show_frame("Message")
 
 
-
 class Message(FrameTemplate, tk.Frame):
+    """
+    A class that displays a message on the screen, thanking the
+    user for joining an event.
+    Inherits from FrameTemplate and tk.Frame.
+
+    Attributes:
+    - parent (tkinter.Tk): The parent widget.
+    - controller (tkinter.Tk): The controller widget.
+    - canvas (tkinter.Canvas): The canvas to display the message on.
+
+    Methods:
+    - __init__(self, parent, controller): Initializes the Message instance.
+    """
     def __init__(self, parent, controller):
         super().__init__(parent, controller)
         FrameTemplate.__init__(self, parent, controller)
