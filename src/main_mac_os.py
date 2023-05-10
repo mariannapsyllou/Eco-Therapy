@@ -275,7 +275,6 @@ class Activities(FrameTemplate, tk.Frame):
                                  hover_color="#22533C",
                                  command=lambda:
                                  self.set_eventid(controller,
-                                                  "Activities",
                                                   self.events[0][0]
                                                   ))
         self.canvas.create_window(180, 600, anchor="nw", window=button_1)
@@ -298,7 +297,7 @@ class Activities(FrameTemplate, tk.Frame):
                                  border_color="#97C2AD",
                                  hover_color="#22533C",
                                  command=lambda:
-                                 self.set_eventid(controller, "Enrollment",
+                                 self.set_eventid(controller,
                                                   self.events[1][0])
                                  )
         self.canvas.create_window(580, 600, anchor="nw", window=button_2)
@@ -323,16 +322,15 @@ class Activities(FrameTemplate, tk.Frame):
                                  hover_color="#22533C",
                                  command=lambda:
                                  self.set_eventid(controller,
-                                                  "Enrollment",
                                                   self.events[2][0])
                                  )
         self.canvas.create_window(980, 600, anchor="nw", window=button_3)
 
-    def set_eventid(self, controller, frame_name, seventid):
+    def set_eventid(self, controller, seventid):
         """Sets the global EVENTID"""
         global EVENTID
         EVENTID = seventid
-        controller.show_frame(frame_name)
+        controller.show_frame("Enrollment")
 
 
 class Articles(FrameTemplate, tk.Frame):

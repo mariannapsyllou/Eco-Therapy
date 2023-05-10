@@ -5,3 +5,4 @@ htmlcov/
 *.pyc
 build/
 .DS_Store
+src/eco-therapy.db
