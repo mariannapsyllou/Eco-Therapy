@@ -16,7 +16,7 @@ class App(tk.Tk):
         tk.Tk.__init__(self, **args)
         self.title_font = tkFont.Font(family="Helvetica", size=40, weight="bold")
         container = tk.Frame(self, width=800, height=600)
-        container.pack(side="top", fill="both", expand=True)
+        container.pack(fill="both", expand=True)
         container.grid_rowconfigure(0, weight=1)
         container.grid_columnconfigure(0, weight=1)
         self.frames = {}
@@ -33,7 +33,6 @@ class App(tk.Tk):
             frame.grid(row=0, column=0, sticky="nsew")
             self.frames[page_name] = frame
 
-        self.attributes("-fullscreen", True)
         self.show_frame("MainMenu")
 
     def show_frame(self, page_name):
