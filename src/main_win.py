@@ -21,10 +21,10 @@ class App(tk.Tk):
         container.grid_columnconfigure(0, weight=1)
         self.frames = {}
         for F in (
-            MainMenuGui,
-            EnrollGui,
+            MainMenu,
+            Activities,
             Articles,
-            EnrollmentGui,
+            Enrollment,
             EnrollMessage,
             AboutUs,
         ):
@@ -81,7 +81,7 @@ class FrameTemplate(tk.Frame):
         self.about_button.place(relx=0.85, rely=0.03, anchor="w")
 
 
-class MainMenuGui(FrameTemplate, tk.Frame):
+class MainMenu(FrameTemplate, tk.Frame):
     def __init__(self, parent, controller):
         super().__init__(parent, controller)
         FrameTemplate.__init__(self, parent, controller)
@@ -147,7 +147,7 @@ class MainMenuGui(FrameTemplate, tk.Frame):
         )
 
 
-class EnrollGui(FrameTemplate, tk.Frame):
+class Activities(FrameTemplate, tk.Frame):
     def __init__(self, parent, controller):
         super().__init__(parent, controller)
         FrameTemplate.__init__(self, parent, controller)
@@ -409,7 +409,7 @@ class Articles(FrameTemplate, tk.Frame):
         )
 
 
-class EnrollmentGui(FrameTemplate, tk.Frame):
+class Enrollment(FrameTemplate, tk.Frame):
     """
     A class that inherits from FrameTemplate and tk.Frame and represents the
     enrollment form for the Eco Therapy application. The class provides various
