@@ -57,7 +57,7 @@ class FrameTemplate(tk.Frame):
             font=("Helvetica", 20, "bold"),
             bg_color=color,
             fg_color=color,
-            command=lambda: controller.show_frame("MainMenuGui"),
+            command=lambda: controller.show_frame("MainMenu"),
         )
         self.homebutton.place(relx=0.01, rely=0.02)
 
@@ -67,7 +67,7 @@ class FrameTemplate(tk.Frame):
             font=("Helvetica", 20, "bold"),
             bg_color="#aac4f5",
             fg_color="#aac4f5",
-            command=lambda: controller.show_frame("EnrollGui"),
+            command=lambda: controller.show_frame("Activities"),
         )
         self.activity_button.place(relx=0.40, rely=0.03, anchor="w")
         self.about_button = ctk.CTkButton(
@@ -107,7 +107,7 @@ class MainMenu(FrameTemplate, tk.Frame):
             fg_color="#317353",
             height=60,
             width=190,
-            command=lambda: controller.show_frame("EnrollGui"),
+            command=lambda: controller.show_frame("Activities"),
         )
         self.button1.update_idletasks()
         self.button1.place(relx=0.14, rely=0.73, anchor="w")
@@ -167,7 +167,7 @@ class Activities(FrameTemplate, tk.Frame):
             ),
             bg_color=color,
             fg_color=color,
-            command=lambda: controller.show_frame("MainMenuGui"),
+            command=lambda: controller.show_frame("MainMenu"),
         )
         self.homebutton.place(relx=0.01, rely=0.02)
         self.activity_button = ctk.CTkButton(
@@ -176,7 +176,7 @@ class Activities(FrameTemplate, tk.Frame):
             font=("Helvetica", 20, "bold"),
             bg_color="#aac4f5",
             fg_color="#aac4f5",
-            command=lambda: controller.show_frame("EnrollGui"),
+            command=lambda: controller.show_frame("Activities"),
         )
         self.activity_button.place(relx=0.40, rely=0.03, anchor="w")
         self.about_button = ctk.CTkButton(
@@ -210,14 +210,14 @@ class Activities(FrameTemplate, tk.Frame):
             f"Date&Time: {self.events[0][2]}\n",
             anchor="center",
             font=("Verdana", 18),
-            # command=lambda: controller.show_frame("EnrollmentGui"),
+            # command=lambda: controller.show_frame("Enrollment"),
             fg_color="#317353",
             bg_color="#5D623F",
             border_width=1,
             border_color="#97C2AD",
             hover_color="#22533C",
             command=lambda: self.set_eventid(
-                controller, "EnrollmentGui", self.events[0][0]
+                controller, "Enrollment", self.events[0][0]
             ),
         )
         self.canvas.create_window(130, 400, anchor="nw", window=button_1)
@@ -233,14 +233,14 @@ class Activities(FrameTemplate, tk.Frame):
             f"Date&Time: {self.events[1][2]}\n",
             anchor="center",
             font=("Verdana", 18),
-            # command=lambda: controller.show_frame("EnrollmentGui"),
+            # command=lambda: controller.show_frame("Enrollment"),
             fg_color="#317353",
             bg_color="#9D7C85",
             border_width=1,
             border_color="#97C2AD",
             hover_color="#22533C",
             command=lambda: self.set_eventid(
-                controller, "EnrollmentGui", self.events[1][0]
+                controller, "Enrollment", self.events[1][0]
             ),
         )
         self.canvas.create_window(530, 400, anchor="nw", window=button_2)
@@ -256,14 +256,14 @@ class Activities(FrameTemplate, tk.Frame):
             f"Date&Time: {self.events[2][2]}\n",
             anchor="center",
             font=("Verdana", 18),
-            # command=lambda: controller.show_frame("EnrollmentGui"),
+            # command=lambda: controller.show_frame("Enrollment"),
             fg_color="#317353",
             bg_color="#CBA09A",
             border_width=1,
             border_color="#97C2AD",
             hover_color="#22533C",
             command=lambda: self.set_eventid(
-                controller, "EnrollmentGui", self.events[2][0]
+                controller, "Enrollment", self.events[2][0]
             ),
         )
         self.canvas.create_window(930, 400, anchor="nw", window=button_3)
@@ -454,7 +454,7 @@ class Enrollment(FrameTemplate, tk.Frame):
         x_0, y_0, x_1, y_1 = self.canvas.bbox(polygon)
         button = self.canvas.create_rectangle(x_0, y_0, x_1, y_1, fill="", outline="")
         self.canvas.tag_bind(
-            button, "<Button-1>", lambda event: controller.show_frame("EnrollGui")
+            button, "<Button-1>", lambda event: controller.show_frame("Activities")
         )
         self.canvas.create_text(
             440, 280, text="First Name", font=("Verdana", 20, "bold"), fill="#317353"
