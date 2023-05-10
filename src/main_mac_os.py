@@ -663,6 +663,12 @@ class Enrollment(FrameTemplate, tk.Frame):
                                self.last_name_entry.get(),
                                self.email_entry.get(),
                                self.birthday, EVENTID)
+        self.first_name_entry.delete(0, ctk.END)
+        self.last_name_entry.delete(0, ctk.END)
+        self.email_entry.delete(0, ctk.END)
+        self.options_year.set(" ")
+        self.options_month.set(" ")
+        self.options_day.set(" ")
         self.controller.show_frame("Message")
 
 
