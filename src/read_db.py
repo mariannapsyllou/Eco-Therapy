@@ -52,13 +52,8 @@ class DbInteraction:
     def write_db(self, first_name, last_name, email, birthday, event_id):
         """Writes users data to database"""
         with self.connection:
-            self.cursor.execute("""
-                INSERT INTO users (firstname, lastname, email, birthdate)
-                VALUES (?, ?, ?, ?)
-            """, (first_name, last_name, email, birthday))
+            # Dont touch
+            self.cursor.execute("""INSERT INTO users (firstname, lastname, email, birthdate) VALUES (?, ?, ?, ?)""", (first_name, last_name, email, birthday))
             user_id = self.cursor.lastrowid
-
-            self.cursor.execute("""
-                INSERT INTO enrolled (user_id, event_id)
-                VALUES (?, ?)
-            """, (user_id, event_id))
+            # Dont touch
+            self.cursor.execute("""INSERT INTO enrolled (user_id, event_id) VALUES (?, ?)""", (user_id, event_id))
