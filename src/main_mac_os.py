@@ -92,7 +92,7 @@ class FrameTemplate(tk.Frame):
     def __init__(self, parent, controller, **kwargs):
         super().__init__(parent, **kwargs)
         self.controller = controller
-        self.image = tk.PhotoImage(file="bb.png")
+        self.image = tk.PhotoImage(file="windmill.png")
         self.canvas = tk.Canvas(self)
         self.font_style = tkFont.Font(family="Verdana",
                                       size=16,
