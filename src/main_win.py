@@ -136,8 +136,8 @@ class MainMenu(FrameTemplate, tk.Frame):
         self.canvas.create_text(
             750,
             640,
-            text="-'I felt so much relief after joining a tree planting session.Beiing in the woods,\
-                                    \nbreathing fresh air, and helping the environment at the same time? Count me in!!'-",
+            text="-'I felt so much relief after joining a tree planting session. Being in the woods,\
+                                    \nbreathing fresh air, and helping the environment at the same time? Count me in!'-",
             font=self.font_style,
             fill="white",
         )
