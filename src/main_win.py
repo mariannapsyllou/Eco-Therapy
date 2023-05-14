@@ -49,7 +49,7 @@ class App(tk.Tk):
     def __init__(self, **args):
         tk.Tk.__init__(self, **args)
         self.title_font = tkFont.Font(family="Helvetica", size=40, weight="bold")
-        container = tk.Frame(self, width=800, height=600)
+        container = tk.Frame(self, width=1500, height=1000)
         container.pack(fill="both", expand=True)
         container.grid_rowconfigure(0, weight=1)
         container.grid_columnconfigure(0, weight=1)
@@ -111,7 +111,7 @@ class FrameTemplate(tk.Frame):
         color = "#%02x%02x%02x" % (169, 200, 244)
         
         # NavBar buttons
-
+        # Home
         self.homebutton = ctk.CTkButton(
             self,
             text="Home",
@@ -121,8 +121,9 @@ class FrameTemplate(tk.Frame):
             hover_color= "#317353",
             command=lambda: controller.show_frame("MainMenu"),
         )
-        self.homebutton.place(relx=0.01, rely=0.02)
+        self.homebutton.place(relx=0.01, rely=0.03, anchor="w")
 
+        # Activities
         self.activity_button = ctk.CTkButton(
             self,
             text="Activities",
@@ -132,8 +133,21 @@ class FrameTemplate(tk.Frame):
             hover_color= "#317353",
             command=lambda: controller.show_frame("Activities"),
         )
-        self.activity_button.place(relx=0.40, rely=0.03, anchor="w")
+        self.activity_button.place(relx=0.30, rely=0.03, anchor="w")
+
+        # Articles
+        self.about_button = ctk.CTkButton(
+            self,
+            text="Articles",
+            font=("Helvetica", 20, "bold"),
+            bg_color=color,
+            fg_color=color,
+            hover_color= "#317353",
+            command=lambda: controller.show_frame("Articles"),
+        )
+        self.about_button.place(relx=0.60, rely=0.03, anchor="w")
         
+        # About Us
         self.about_button = ctk.CTkButton(
             self,
             text="About us",
@@ -144,7 +158,6 @@ class FrameTemplate(tk.Frame):
             command=lambda: controller.show_frame("AboutUs"),
         )
         self.about_button.place(relx=0.85, rely=0.03, anchor="w")
-        # add articles?
 
 
 class MainMenu(FrameTemplate, tk.Frame):
@@ -185,8 +198,9 @@ class MainMenu(FrameTemplate, tk.Frame):
 
         # Description over the "enroll" button
         self.canvas.create_text(
-            410,
+            110,
             330,
+            anchor="nw",
             text="Join our activity sessions to improve the\
                     \n           environment, with others.\
                     \n\nMake a difference by planting trees, recycling\
@@ -205,17 +219,18 @@ class MainMenu(FrameTemplate, tk.Frame):
             width=190,
             command=lambda: controller.show_frame("Activities")
         )
-        self.button1.place(relx=0.14, rely=0.73, anchor="w")
+        self.button1.place(relx=0.17, rely=0.73, anchor="nw")
 
         # Description over the "learn more" button
         self.canvas.create_text(
-            1100,
+            730,
             330,
+            anchor="nw",
             text="Learn more ways to help the environment\
-                                \n            in your daily acitivities.\
-                                \n\nOur knowledge bank is updated continiously\
-                                \n   to provide the latest information in the \
-                                \n                          field.",
+                \n            in your daily acitivities.\
+                \n\nOur knowledge bank is updated continiously\
+                \n   to provide the latest information in the \
+                \n                          field.",
             font=("Verdana", 16),
             fill="#317353"
         )
@@ -229,7 +244,7 @@ class MainMenu(FrameTemplate, tk.Frame):
             width=190,
             command=lambda: controller.show_frame("Articles")
         )
-        self.button2.place(relx=0.84, rely=0.73, anchor="e")
+        self.button2.place(relx=0.67, rely=0.73, anchor="nw")
 
         # Testimony text
         self.canvas.create_text(
